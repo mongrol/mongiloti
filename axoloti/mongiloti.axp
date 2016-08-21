@@ -3,7 +3,7 @@
       <params/>
       <attribs/>
    </obj>
-   <patcher type="patch/patcher" uuid="74c07193-aa9f-47c4-8985-3347e35e0d04" name="OSC" x="336" y="56">
+   <patcher type="patch/patcher" uuid="9d19fc07-b171-4017-83cb-78925350849f" name="OSC" x="336" y="56">
       <params/>
       <attribs/>
       <subpatch appVersion="1.0.10">
@@ -52,7 +52,7 @@
          </windowPos>
       </subpatch>
    </patcher>
-   <patcher type="patch/patcher" uuid="21c3802b-f007-4b75-8cfe-05beb2a6c9e6" name="FILTER" x="560" y="56">
+   <patcher type="patch/patcher" uuid="6c43d725-9645-4838-8f1e-a1587c52974b" name="FILTER" x="560" y="56">
       <params/>
       <attribs/>
       <subpatch appVersion="1.0.10">
@@ -95,148 +95,53 @@
       <params/>
       <attribs/>
    </obj>
-   <comment type="patch/comment" x="28" y="434" text="Teensy MIDI-IN"/>
-   <obj type="gpio/serial/config" uuid="8ec617bbe7b552a58656442e87513d8b4c69833a" name="config_1" x="28" y="448">
+   <obj type="disp/i" uuid="5e35fd0c62d81e70017289250cf28edd26e19e4a" name="i_1" x="210" y="154">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="gpio/in/analog" uuid="1c0c845ed2d7e06ae5f377ba13d9d09f4747ac87" name="SL (3)" x="56" y="238">
+      <params/>
+      <attribs>
+         <combo attributeName="channel" selection="PA6 (ADC1_IN6)"/>
+      </attribs>
+   </obj>
+   <obj type="disp/chart b" uuid="d2bdf496f96ee521628490a038411210fbe29b15" name="chart_2" x="308" y="238">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="ctrl/toggle" uuid="42b8134fa729d54bfc8d62d6ef3fa99498c1de99" name="toggle_1" x="14" y="336">
+      <params>
+         <bool32.tgl name="b" value="1"/>
+      </params>
+      <attribs/>
+   </obj>
+   <obj type="gpio/out/digital" uuid="320eed040f6c55bb24c56416596ac2e67d0c82bc" name="D1" x="84" y="336">
+      <params/>
+      <attribs>
+         <combo attributeName="pad" selection="PA4"/>
+         <combo attributeName="mode" selection="Push pull"/>
+      </attribs>
+   </obj>
+   <comment type="patch/comment" x="700" y="392" text="Teensy MIDI-IN"/>
+   <obj type="gpio/serial/config" uuid="8ec617bbe7b552a58656442e87513d8b4c69833a" name="config_1" x="700" y="406">
       <params/>
       <attribs>
          <combo attributeName="baudrate" selection="31250"/>
       </attribs>
    </obj>
-   <obj type="script/script2" sha="1478c410b77725959c034de4a2456dd1198e9080" name="script2_1" x="28" y="490">
+   <obj type="gpio/out/digital" uuid="320eed040f6c55bb24c56416596ac2e67d0c82bc" name="D2" x="84" y="434">
       <params/>
       <attribs>
-         <text attributeName="script">
-            <sText><![CDATA[uint8_t StatusToMsgLength(uint8_t t){
-	switch(t) {
-	case 0x0:
-	case 0x1:
-	case 0x2:
-	case 0x3:
-	case 0x4:
-	case 0x5:
-	case 0x6:
-	case 0x7:
-		return 0;
-	case 0x8:
-	case 0x9:
-	case 0xa:
-	case 0xb:
-		return 3;
-	case 0xc:
-	case 0xd:
-		return 2;
-	case 0xe:
-		return 3;
-	default:
-		return -1;
-	}
-}
-
-uint8_t SysToMsgLength(uint8_t t){
-    switch(t) {
-	case 0x0:
-		return -1; // 0xf0=sysex start. may vary
-	case 0x1:
-		return 2; // 0xf1=MIDI Time Code. 2 bytes
-	case 0x2:
-		return 3; // 0xf2=MIDI Song position. 3 bytes
-	case 0x3:
-		return 2; // 0xf3=MIDI Song Select. 2 bytes.
-	case 0x4:
-		return 1; // 0xf4=undefined
-	case 0x5:
-		return 1; // 0xf5=undefined
-	case 0x6:
-		return 1; // 0xf6=TUNE Request
-	case 0x7:
-		return 1; // 0xf7=sysex end.
-	case 0x8:
-		return 1; // 0xf8=timing clock. 1 byte
-	case 0x9:
-		return 1; // 0xf9=proposed measure end?
-	case 0xa:
-		return 1; // 0xfa=start. 1 byte
-	case 0xb:
-		return 1; // 0xfb=continue. 1 byte
-	case 0xc:
-		return 1; // 0xfc=stop. 1 byte
-	case 0xd:
-		return 1; // 0xfd=undefined
-	case 0xe:
-		return 1; // 0xfe=active sensing. 1 byte
-	case 0xf:
-	default:
-		return 3; // 0xff= not reset, but a META-EVENT, which is always 3 bytes
-	}
-}
-
-
-unsigned char MidiByte0;
-unsigned char MidiByte1;
-unsigned char MidiByte2;
-unsigned char MidiCurData;
-unsigned char MidiNumData;
-
-uint8_t port = 0;
-
-void setup(){
-  MidiNumData = 0;
-  MidiCurData = 0;
-}
-
-
-void MidiInByteHandler(uint8_t data) {
-  int8_t len;
-  if (data & 0x80) {
-    len = StatusToMsgLength(data >> 4);
-    if (len == -1) {
-      len = SysToMsgLength(data - 0xF0);
-    }
-    if (len == 1) {
-      MidiInMsgHandler(MIDI_DEVICE_INTERNAL,port,data,0,0);
-    } else {
-      MidiByte0 = data;
-      MidiNumData = len - 1;
-      MidiCurData = 0;
-    }
-  }
-  else // not a status byte
-  {
-    if (MidiCurData == 0) {
-      MidiByte1 = data;
-      if (MidiNumData == 1) {
-        // 2 byte message complete
-        MidiInMsgHandler(MIDI_DEVICE_INTERNAL,port,MidiByte0, MidiByte1,0);
-        //MidiInMsgHandler(MidiByte0, MidiByte1, 0);
-        MidiCurData = 0;
-      }
-      else
-        MidiCurData++;
-    }
-    else if (MidiCurData == 1) {
-      MidiByte2 = data;
-      if (MidiNumData == 2) {
-      	MidiInMsgHandler(MIDI_DEVICE_INTERNAL,port,MidiByte0, MidiByte1, MidiByte2);
-        //MidiInMsgHandler(MidiByte0, MidiByte1, MidiByte2);
-        MidiCurData = 0;
-      }
-    }
-  }
-}
-void loop(){
-    char ch = sdGet(&SD2);
-    MidiInByteHandler(ch);	
-}]]></sText>
-         </text>
+         <combo attributeName="pad" selection="PA5"/>
+         <combo attributeName="mode" selection="Open drain"/>
       </attribs>
    </obj>
-   <obj type="midi/in/keyb" uuid="53b04874696932f38aceaa168bd5d9efb743716d" name="keyb_1" x="686" y="518">
+   <obj type="gpio/in/digital" uuid="f59f139e8da912742832dc541157f20f30b7ac1b" name="47k" x="84" y="532">
       <params/>
-      <attribs/>
-   </obj>
-   <obj type="disp/chart p" uuid="58f42040a894006a5f73ed8cb8d0bd45481b28cd" name="chart_1" x="798" y="518">
-      <params/>
-      <attribs/>
+      <attribs>
+         <combo attributeName="pad" selection="PA7"/>
+         <combo attributeName="mode" selection="pulldown"/>
+      </attribs>
    </obj>
    <comment type="patch/comment" x="378" y="546" text="show any incoming midi continuous controller message"/>
    <obj type="midi/in/cc i any" sha="125bd0e830dd1600ee82080af5ca074ec2cd8fce" name="ctlini_any_1" x="378" y="574">
@@ -247,15 +152,23 @@ void loop(){
       <params/>
       <attribs/>
    </obj>
+   <obj type="midi/in/keyb" uuid="53b04874696932f38aceaa168bd5d9efb743716d" name="keyb_1" x="588" y="602">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="disp/chart p" uuid="58f42040a894006a5f73ed8cb8d0bd45481b28cd" name="chart_1" x="700" y="602">
+      <params/>
+      <attribs/>
+   </obj>
    <obj type="disp/i" sha="f181c855026fdce66f3c38cd8c5438343d6f0869" name="dispI_2" x="476" y="630">
       <params/>
       <attribs/>
    </obj>
-   <obj type="disp/bool" uuid="a0ee71d48208b71752cbb8c05e55145106ef3946" name="bool_1" x="798" y="630">
+   <obj type="disp/i" sha="f181c855026fdce66f3c38cd8c5438343d6f0869" name="dispI_3" x="476" y="686">
       <params/>
       <attribs/>
    </obj>
-   <obj type="disp/i" sha="f181c855026fdce66f3c38cd8c5438343d6f0869" name="dispI_3" x="476" y="686">
+   <obj type="disp/bool" uuid="a0ee71d48208b71752cbb8c05e55145106ef3946" name="bool_1" x="700" y="714">
       <params/>
       <attribs/>
    </obj>
@@ -272,14 +185,6 @@ void loop(){
       <net>
          <source obj="FILTER" outlet="filterOut"/>
          <dest obj="*_2" inlet="b"/>
-      </net>
-      <net>
-         <source obj="mpe_1" outlet="note"/>
-         <dest obj="OSC" inlet="ptch"/>
-      </net>
-      <net>
-         <source obj="mpe_1" outlet="gate"/>
-         <dest obj="*_2" inlet="a"/>
       </net>
       <net>
          <source obj="keyb_1" outlet="gate2"/>
@@ -301,6 +206,17 @@ void loop(){
          <source obj="ctlini_any_1" outlet="channel"/>
          <dest obj="dispI_3" inlet="in"/>
       </net>
+      <net>
+         <source obj="SL (3)" outlet="out"/>
+         <dest obj="chart_2" inlet="in"/>
+         <dest obj="i_1" inlet="in"/>
+         <dest obj="OSC" inlet="ptch"/>
+         <dest obj="*_2" inlet="a"/>
+      </net>
+      <net>
+         <source obj="toggle_1" outlet="o"/>
+         <dest obj="D1" inlet="in"/>
+      </net>
    </nets>
    <settings>
       <subpatchmode>no</subpatchmode>
@@ -309,13 +225,12 @@ void loop(){
       <NPresetEntries>32</NPresetEntries>
       <NModulationSources>8</NModulationSources>
       <NModulationTargetsPerSource>8</NModulationTargetsPerSource>
-      <Author></Author>
    </settings>
    <notes><![CDATA[sdsa]]></notes>
    <windowPos>
-      <x>613</x>
-      <y>201</y>
-      <width>1207</width>
-      <height>967</height>
+      <x>928</x>
+      <y>24</y>
+      <width>928</width>
+      <height>1176</height>
    </windowPos>
 </patch-1.0>

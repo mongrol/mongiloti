@@ -1,0 +1,94 @@
+ 
+* TODO Teensy GPIO Table
+
+| Works |   | Cmpnt         | Req                   |     Pin | Anlg | Cm pin  | Type             |
+|-------+---+---------------+-----------------------+---------+------+---------+------------------|
+| y     | y | Pot 9         |                       |         | A10  |         | Reverse          |
+| y     | y | Pot 10        |                       |         | A11  |         | Reverse          |
+| y     | y | UART          | 1x                    |       0 |      | PA2     | Rx               |
+| y     | y | Midi          | 1x                    |       1 |      | PA3     | Tx               |
+| y     | y | Encoder Btn   | 1xdig, 3v             |       2 |      | 5 ?     | Dig              |
+|       | y | Encoder green | DANGER                |       3 |      | 2       | Dig              |
+|       | y | Encoder red   | DANGER                |       4 |      | 1       | Dig              |
+|       | y | Encoder blue  | DANGER                |       5 |      | 4       | Dig              |
+| y     | y | Encoder Turn  | gnd/3v 2xdig          |       6 |      | A       | Dig              |
+| y     | y | Encoder Turn  |                       |       7 |      | B       | Dig              |
+| y     | y | oled          | rst                   |       8 |      | rst     | i2c              |
+| y     |   | Trellis       | int                   |       9 |      | INT     | i2c              |
+| y     | y | SDCard        |                       |      10 |      | CS      | CS               |
+| y     | y | SDCard        |                       |      11 |      | DI      | DOUT             |
+| y     | y | SDCard        |                       |      12 |      | DO      | DIN              |
+| y     | y | SDCard        | 3.3v!!!!!!! 4wire spi |      13 |      | CLK     | SCK              |
+| y     | y | Pot 1         | gnd, 3.3v, 1xAnlg     |      14 | A0   |         |                  |
+| y     | y | Pot 2         |                       |      15 | A1   |         |                  |
+| y     | y | Pot 3         |                       |      16 | A2   |         |                  |
+| y     | y | Pot 4         |                       |      17 | A3   |         |                  |
+| y     | y | oled          | gdn, 3.3v, i2c        |      18 |      | data    | i2c              |
+| y     | y | Trellis       | gnd, 5v (axo)         |      18 |      | sda0    | i2c              |
+| y     | y | oled          |                       |      19 |      | clk     | i2c              |
+| y     | y | Trellis       |                       |      19 |      | scl0    | 2c               |
+| y     | y | Pot 5         |                       |      20 | A6   |         |                  |
+| y     | y | Pot 6         |                       |      21 | A7   |         |                  |
+| y     | y | Pot 7         |                       |      22 | A8   |         |                  |
+| y     | y | Pot 8         |                       |      23 | A9   |         |                  |
+|       |   | FSR           | v, gnd, 2xAnlg        | Axo PA4 |      | 1    D1 | ADC              |
+|       |   | FSR           |                       | Axo PA5 |      | 2    D2 | Dig  >1M pullup? |
+|       |   | FSR           |                       | Axo PA6 |      | 3    SL | ADC              |
+|       |   | FSR           |                       | Axo PA7 |      | 1 4.7k   | Dig >1M pullup?  |
+|       |   |               |                       |         |      |         |                  |
+
+* Function Table
+
+|  # | Name          | GPIO | Section | Comments | New |
+|----+---------------+------+---------+----------+-----|
+|  1 | Detune        |      | OSC     | Supersaw |     |
+|  2 | PWM Width     |      | OSC     | PWM      |     |
+|  3 | OSC mix       |      | OSC     |          |     |
+|  4 | lfo 1 freq    |      | LFO     |          |     |
+|  5 | lfo 2 freq    |      | LFO     |          |     
+|  6 | filter pitch  |      | filter  |          |     |
+|  7 | filter res    |      | filter  |          |     |
+|  8 | Attack        |      | Env     |          |     |
+|  9 | Decay/Release |      | Env     |          |     |
+| 10 | Sustain       |      | Env     |          |     |
+|    | Volume        |      | VCA     |          | Enc |
+|    | Reverb am     |      | FX      |          | Enc |
+|    | Reverb Decay  |      | FX      |          | Enc |
+|    | delay fdbck   |      | FX      |          | Enc |
+|    | delay time    |      | FX      |          | Enc |
+| A0 | Pitch (slide) | Axo  | OSC     |          |     |
+| A1 | Gate (slide)  | Axo  | OSC     |          |     |
+
+* Matrix
+| *           | LFO1    | LFO2     | Env     |
+|-------------+---------+----------+---------|
+| Pitch       |         |          |         |
+| PWM         |         |          |         |
+| Filter freq |         |          |         |
+| LFO1 Freq   | -       |          |         |
+|-------------+---------+----------+---------|
+|             | lfo amt | lfo2 amt | Env amt |
+|             | Enc     | Enc      | Enc     |
+
+  
+* Trellis pin order
+
+Note: Upside down 
+
+SDA
+SCL
+GND
+5v
+INT
+
+* SDCard pin order
+GND y
+3v3 y
+5v
+CS 
+MOSI (DIN)
+SCK (CLK)
+MISO (DOUT)
+GND
+
+
