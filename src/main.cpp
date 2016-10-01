@@ -1,4 +1,3 @@
-
 #include <Arduino.h>
 
 #include <Encoder.h>
@@ -145,9 +144,9 @@ void loop() {
 
   //rgb
 
-  analogWrite(LED_RED, rgbon);
-  analogWrite(LED_GREEN, rgbon);
-  analogWrite(LED_BLUE, rgbon);
+  analogWrite(LED_RED, rgboff);
+  analogWrite(LED_GREEN, rgboff);
+  analogWrite(LED_BLUE, rgboff);
 
   newEncoderPosition = myEnc.read();
   if (newEncoderPosition != oldEncoderPosition) {
