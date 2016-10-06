@@ -1,13 +1,13 @@
 #include <Arduino.h>
 
 #include <Encoder.h>
+#include <MenuSystem.h>
 #include <MIDI.h>
 #include <SPI.h>
 #include <Wire.h>
-//#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include "Adafruit_Trellis.h"
 
+#include "trellis.h"
+#include "render.h"
 #include "smooth.h"
 #include "logo.h"
 
@@ -27,20 +27,8 @@ int potValues[POTCOUNT];
 #define LED_GREEN 3
 #define LED_BLUE 5
 
-//set OLED
-#define SSD1306_128_64
-#define OLED_RESET 8
-Adafruit_SSD1306 display(OLED_RESET);
 
-//set Trellis
-#define MOMENTARY 0
-#define LATCHING 1
-#define MODE LATCHING
-Adafruit_Trellis matrix0 = Adafruit_Trellis();
-Adafruit_TrellisSet trellis =  Adafruit_TrellisSet(&matrix0);
-#define NUMTRELLIS 1
-#define numKeys (NUMTRELLIS * 16)
-#define INTPIN 9
+
 
 
 //set Encoder pins
@@ -50,8 +38,12 @@ Encoder myEnc(7, 6);
 const int channel = 7;
 
 
-
 void setup()   {
+
+  //setup display
+  setupDisplay();
+  setupTrellis();
+
   analogReadResolution(7);
   analogReadAveraging(8);
   Serial.begin(31250);
@@ -79,33 +71,6 @@ void setup()   {
   pinMode(LED_GREEN, INPUT);
   pinMode(LED_BLUE, INPUT);
 
-  // init display
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3d);
-
-  //draw logo
-  display.clearDisplay();
-  display.fillRect(0,0,16,64,WHITE);
-  display.fillRect(111,0,128,64,WHITE);
-  display.drawBitmap(16, 0,  logo, 95, 64, 1);
-  display.display();
-  display.invertDisplay(false);
-
-  // init Trellis  // INT pin requires a pullup
-  pinMode(INTPIN, INPUT);
-  digitalWrite(INTPIN, HIGH);
-  trellis.begin(0x70);
-  // light up all the LEDs in order
-  for (uint8_t i=0; i<numKeys; i++) {
-    trellis.setLED(i);
-    trellis.writeDisplay();
-    delay(50);
-  }
-  // then turn them off
-  for (uint8_t i=0; i<numKeys; i++) {
-    trellis.clrLED(i);
-    trellis.writeDisplay();
-    delay(50);
-  }
 }
 
 long oldEncoderPosition  = -999;
@@ -115,16 +80,6 @@ long newEncoderPosition = 10;
 int rgbon = 155;
 int rgboff = 255;
 
-void draw(String str) {
-  display.clearDisplay();
-  display.setCursor(0,0);
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-
-  display.print(str);
-
-  display.display();
-}
 
 void loop() {
 
@@ -175,23 +130,7 @@ void loop() {
     }
   }
 
-  //trellis
-  if (MODE == LATCHING) {
-    // If a button was just pressed or released...
-    if (trellis.readSwitches()) {
-      // go through every button
-      for (uint8_t i=0; i<numKeys; i++) {
-        // if it was pressed...
-        if (trellis.justPressed(i)) {
-          // Alternate the LED
-          if (trellis.isLED(i))
-            trellis.clrLED(i);
-          else
-            trellis.setLED(i);
-        }
-      }
-      // tell the trellis to set the LEDs we requested
-      trellis.writeDisplay();
-    }
-  }
+  processTrellis();
+
+
 }

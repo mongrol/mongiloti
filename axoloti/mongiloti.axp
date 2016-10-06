@@ -1,75 +1,23 @@
-<patch-1.0 appVersion="1.0.10">
-   <obj type="disp/i" uuid="5e35fd0c62d81e70017289250cf28edd26e19e4a" name="Pressure" x="658" y="0">
+<patch-1.0 appVersion="1.0.11">
+   <obj type="midi/ctrl/mpe" uuid="94323477e6476a10b9332922e5dfcd2705641af1" name="mpe_1" x="42" y="28">
       <params/>
       <attribs/>
    </obj>
-   <obj type="ctrl/toggle" uuid="42b8134fa729d54bfc8d62d6ef3fa99498c1de99" name="toggle_1" x="14" y="14">
-      <params>
-         <bool32.tgl name="b" value="1"/>
-      </params>
-      <attribs/>
-   </obj>
-   <obj type="gpio/out/digital" uuid="320eed040f6c55bb24c56416596ac2e67d0c82bc" name="D1" x="84" y="14">
-      <params/>
-      <attribs>
-         <combo attributeName="pad" selection="PA4"/>
-         <combo attributeName="mode" selection="Push pull"/>
-      </attribs>
-   </obj>
-   <obj type="gpio/in/analog" uuid="1c0c845ed2d7e06ae5f377ba13d9d09f4747ac87" name="V1" x="196" y="28">
-      <params/>
-      <attribs>
-         <combo attributeName="channel" selection="PA5 (ADC1_IN5)"/>
-      </attribs>
-   </obj>
-   <obj type="math/-" uuid="3280bb759e9fc189e134300e48dda7e903c9a110" name="-_1" x="336" y="56">
+   <obj type="audio/out stereo" uuid="a1ca7a567f535acc21055669829101d3ee7f0189" name="out_1" x="854" y="28">
       <params/>
       <attribs/>
    </obj>
-   <obj type="sss/math/divremc" uuid="1638b705-df81-436f-acf6-3399bf364363" name="divremc_1" x="406" y="56">
+   <patcher type="patch/patcher" uuid="41a0d70b-1c96-40e4-bdb6-cf0fb29fae64" name="OSC" x="336" y="56">
       <params/>
       <attribs/>
-   </obj>
-   <obj type="math/muls 64" uuid="ffac4e7340f665f5e4c92f2d2748cee1a397783a" name="muls_1" x="532" y="56">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="disp/bool" uuid="a0ee71d48208b71752cbb8c05e55145106ef3946" name="Gate On" x="658" y="56">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="gpio/out/digital" uuid="320eed040f6c55bb24c56416596ac2e67d0c82bc" name="D1_" x="84" y="84">
-      <params/>
-      <attribs>
-         <combo attributeName="pad" selection="PA7"/>
-         <combo attributeName="mode" selection="Push pull"/>
-      </attribs>
-   </obj>
-   <obj type="gpio/in/analog" uuid="1c0c845ed2d7e06ae5f377ba13d9d09f4747ac87" name="V2" x="196" y="84">
-      <params/>
-      <attribs>
-         <combo attributeName="channel" selection="PA6 (ADC1_IN6)"/>
-      </attribs>
-   </obj>
-   <obj type="patch/preset" uuid="f7916cc01d45a5b1bbd444216031e0a02cc0b94c" name="preset_1" x="406" y="196">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="midi/ctrl/mpe" uuid="94323477e6476a10b9332922e5dfcd2705641af1" name="mpe_1" x="42" y="378">
-      <params/>
-      <attribs/>
-   </obj>
-   <patcher type="patch/patcher" uuid="a4bb7ca8-d8c3-47fa-a37f-b826e6545be7" name="OSC" x="336" y="406">
-      <params/>
-      <attribs/>
-      <subpatch appVersion="1.0.10">
+      <subpatch appVersion="1.0.11">
          <obj type="patch/inlet f" uuid="5c585d2dcd9c05631e345ac09626a22a639d7c13" name="ptch" x="14" y="14">
             <params/>
             <attribs/>
          </obj>
          <obj type="osc/supersaw" uuid="ece83feb36cfaee7dc3964b75c485774ea0309cf" name="supersaw_1" x="140" y="14">
             <params>
-               <frac32.s.map name="pitch" value="0.0"/>
+               <frac32.s.map name="pitch" MidiCC="20" value="0.0"/>
                <frac32.u.map name="detune" value="0.0"/>
             </params>
             <attribs/>
@@ -101,17 +49,17 @@
          </settings>
          <notes><![CDATA[]]></notes>
          <windowPos>
-            <x>0</x>
-            <y>24</y>
+            <x>341</x>
+            <y>580</y>
             <width>604</width>
             <height>400</height>
          </windowPos>
       </subpatch>
    </patcher>
-   <patcher type="patch/patcher" uuid="3a962fca-9cd4-4637-baa0-86e2b0db272a" name="FILTER" x="518" y="406">
+   <patcher type="patch/patcher" uuid="e1a836e2-8463-43e8-b8a2-935ab36c1050" name="FILTER" x="518" y="56">
       <params/>
       <attribs/>
-      <subpatch appVersion="1.0.10">
+      <subpatch appVersion="1.0.11">
          <obj type="patch/inlet a" uuid="b577fe41e0a6bc7b5502ce33cb8a3129e2e28ee5" name="filterIn" x="56" y="112">
             <params/>
             <attribs/>
@@ -149,27 +97,15 @@
          </windowPos>
       </subpatch>
    </patcher>
-   <obj type="audio/out stereo" uuid="a1ca7a567f535acc21055669829101d3ee7f0189" name="out_1" x="896" y="420">
+   <obj type="math/*" uuid="3ac307b9f782049739ed62504081b96d580ea336" name="*_1" x="756" y="56">
       <params/>
       <attribs/>
    </obj>
-   <obj type="math/*" uuid="3ac307b9f782049739ed62504081b96d580ea336" name="*_1" x="798" y="434">
+   <obj type="disp/scope 128 b trig" uuid="11747dcd1dc9afe4919f537c861fb18b80b4e4e" name="scope_2" x="448" y="196">
       <params/>
       <attribs/>
    </obj>
-   <obj type="disp/i" uuid="5e35fd0c62d81e70017289250cf28edd26e19e4a" name="i_1" x="980" y="532">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="disp/bool" uuid="a0ee71d48208b71752cbb8c05e55145106ef3946" name="bool_1" x="364" y="546">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="disp/scope 128 b trig" uuid="11747dcd1dc9afe4919f537c861fb18b80b4e4e" name="scope_2" x="560" y="574">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="disp/scope 128 b trig" uuid="11747dcd1dc9afe4919f537c861fb18b80b4e4e" name="scope_1" x="826" y="574">
+   <obj type="disp/scope 128 b trig" uuid="11747dcd1dc9afe4919f537c861fb18b80b4e4e" name="scope_1" x="616" y="196">
       <params/>
       <attribs/>
    </obj>
@@ -178,7 +114,6 @@
          <source obj="*_1" outlet="result"/>
          <dest obj="out_1" inlet="left"/>
          <dest obj="out_1" inlet="right"/>
-         <dest obj="i_1" inlet="in"/>
       </net>
       <net>
          <source obj="OSC" outlet="out"/>
@@ -196,34 +131,7 @@
       </net>
       <net>
          <source obj="mpe_1" outlet="gate"/>
-         <dest obj="bool_1" inlet="in"/>
-      </net>
-      <net>
-         <source obj="V2" outlet="out"/>
-         <dest obj="-_1" inlet="in2"/>
-         <dest obj="divremc_1" inlet="a"/>
-      </net>
-      <net>
-         <source obj="V1" outlet="out"/>
-         <dest obj="-_1" inlet="in1"/>
-      </net>
-      <net>
-         <source obj="-_1" outlet="out"/>
-         <dest obj="divremc_1" inlet="denominator"/>
-      </net>
-      <net>
-         <source obj="divremc_1" outlet="div"/>
-         <dest obj="muls_1" inlet="in"/>
-      </net>
-      <net>
-         <source obj="muls_1" outlet="out"/>
-         <dest obj="Pressure" inlet="in"/>
-         <dest obj="Gate On" inlet="in"/>
          <dest obj="*_1" inlet="a"/>
-      </net>
-      <net>
-         <source obj="toggle_1" outlet="o"/>
-         <dest obj="D1" inlet="in"/>
       </net>
    </nets>
    <settings>
@@ -233,11 +141,12 @@
       <NPresetEntries>32</NPresetEntries>
       <NModulationSources>8</NModulationSources>
       <NModulationTargetsPerSource>8</NModulationTargetsPerSource>
+      <Author></Author>
    </settings>
    <notes><![CDATA[sdsa]]></notes>
    <windowPos>
-      <x>596</x>
-      <y>141</y>
+      <x>598</x>
+      <y>186</y>
       <width>1208</width>
       <height>1012</height>
    </windowPos>
