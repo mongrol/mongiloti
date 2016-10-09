@@ -5,7 +5,6 @@
 #include "Adafruit_SSD1306.h"
 #include "Adafruit_GFX.h"
 
-
 void draw(String str);
 void setupDisplay();
 

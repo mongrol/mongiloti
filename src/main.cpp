@@ -6,63 +6,44 @@
 #include <SPI.h>
 #include <Wire.h>
 
+#include "defines.h"
+#include "pot.h"
 #include "trellis.h"
 #include "render.h"
-#include "smooth.h"
 #include "logo.h"
-
-//set POTS
-#define POTCOUNT 10
-SmoothAnalogInput pot0, pot1, pot2, pot3, pot4, pot5, pot6, pot7, pot8, pot9;
-SmoothAnalogInput pots[POTCOUNT] = {
-  pot0, pot1, pot2, pot3, pot4, pot5, pot6, pot7, pot8, pot9
-};
-int potValues[POTCOUNT];
-
-//set button - PULLDOWN
-#define BUTTON 2
-
-//set RGB LED's - Analog , 255 to turn off
-#define LED_RED 3
-#define LED_GREEN 3
-#define LED_BLUE 5
-
 
 
 
 
 //set Encoder pins
 Encoder myEnc(7, 6);
+long oldEncoderPosition  = -999;
+long newEncoderPosition = 10;
 
 //set Midi channel
 const int channel = 7;
 
+//rgb test
+int rgbon = 155;
+int rgboff = 255;
 
 void setup()   {
+
+  //???
+  analogReadResolution(7);
+  analogReadAveraging(8);
+
+  //do we need this? Not for MIDI anyway.
+  Serial.begin(31250);
+
+  //setup Midi
+  MIDI.begin();
 
   //setup display
   setupDisplay();
   setupTrellis();
 
-  analogReadResolution(7);
-  analogReadAveraging(8);
-  Serial.begin(31250);
-  MIDI.begin();
-
-  //Attach pots A0-A3
-  for (int i = 0;i<=4;i++){
-    pots[i].attach(i);
-    potValues[i] = pots[i].read();
-    Serial.println("Reading pot:" + i );
-  }
-
-  //Attach pots A6-A11
-  for (int i = 4;i<=9;i++){
-    pots[i].attach(i+2);
-    potValues[i] = pots[i].read();
-    Serial.println("Reading pot:" + i );
-  }
-
+  //Setup Encoder
   // init button - PULLDOWN
   pinMode(BUTTON, INPUT_PULLDOWN);
 
@@ -70,15 +51,15 @@ void setup()   {
   pinMode(LED_RED, INPUT);
   pinMode(LED_GREEN, INPUT);
   pinMode(LED_BLUE, INPUT);
-
+  //rgb
+  analogWrite(LED_RED, rgboff);
+  analogWrite(LED_GREEN, rgboff);
+  analogWrite(LED_BLUE, rgboff);
 }
 
-long oldEncoderPosition  = -999;
-long newEncoderPosition = 10;
 
-//rgb test
-int rgbon = 155;
-int rgboff = 255;
+
+
 
 
 void loop() {
@@ -97,11 +78,7 @@ void loop() {
     // Serial.println("Button Not Pressed");
   }
 
-  //rgb
 
-  analogWrite(LED_RED, rgboff);
-  analogWrite(LED_GREEN, rgboff);
-  analogWrite(LED_BLUE, rgboff);
 
   newEncoderPosition = myEnc.read();
   if (newEncoderPosition != oldEncoderPosition) {
@@ -111,26 +88,6 @@ void loop() {
     draw(label);
   }
 
-  //scan pots for change
-  for (int i = 0;i<=POTCOUNT;i++){
-    int potValue = pots[i].read();
-    if (potValues[i] != potValue){
-      String label = "pot:";
-      label += i;
-      label += ":";
-      label += potValue;
-      draw(label);
-      potValues[i] = potValue;
-      if (i == 7){
-        //send filter CC
-        MIDI.sendControlChange(21, potValue, channel);
-      }
-    } else {
-      /* draw(999); */
-    }
-  }
-
+  processPots();
   processTrellis();
-
-
 }
