@@ -1,24 +1,18 @@
 #include <Arduino.h>
 
-#include <Encoder.h>
 #include <MenuSystem.h>
 #include <MIDI.h>
 #include <SPI.h>
 #include <Wire.h>
 
 #include "defines.h"
+#include "encoder.h"
 #include "pot.h"
 #include "trellis.h"
-#include "render.h"
+#include "display.h"
 #include "logo.h"
 
 
-
-
-//set Encoder pins
-Encoder myEnc(7, 6);
-long oldEncoderPosition  = -999;
-long newEncoderPosition = 10;
 
 //set Midi channel
 const int channel = 7;
@@ -39,13 +33,11 @@ void setup()   {
   //setup Midi
   MIDI.begin();
 
-  //setup display
+  //setups
   setupDisplay();
+  setupMenu();
+  setupEncoder();
   setupTrellis();
-
-  //Setup Encoder
-  // init button - PULLDOWN
-  pinMode(BUTTON, INPUT_PULLDOWN);
 
   //RGB LED's (INPUT because of 5v instead of gnd)
   pinMode(LED_RED, INPUT);
@@ -58,10 +50,6 @@ void setup()   {
 }
 
 
-
-
-
-
 void loop() {
 
   delay(30); // 30ms delay is required for Trellis, TODO!
@@ -71,23 +59,10 @@ void loop() {
   //delay(1050);
   //MIDI.sendNoteOff(50, 100, channel);
 
-  // read button
-  if (digitalRead(BUTTON) == HIGH) {
-    draw("button pressed");
-  } else {
-    // Serial.println("Button Not Pressed");
-  }
-
-
-
-  newEncoderPosition = myEnc.read();
-  if (newEncoderPosition != oldEncoderPosition) {
-    oldEncoderPosition = newEncoderPosition;
-    String label = "Enc:";
-    label += myEnc.read();
-    draw(label);
-  }
-
+  processButton();
+  processEncoder();
   processPots();
   processTrellis();
+
+  updateDisplay();
 }
