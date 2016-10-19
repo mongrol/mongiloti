@@ -2,17 +2,15 @@
 #define DISPLAY_H
 
 #include <Arduino.h>
-#include <MenuSystem.h>
+//#include "MenuSystem.h"
 #include "Adafruit_SSD1306.h"
 #include "Adafruit_GFX.h"
-#include <MenuSystem.h>
 
 
-void onItemSelected(MenuItem* p_menuItem);
 
-void draw(String str);
+void draw(const char* label, int value);
 void setupDisplay();
-void setupMenu();
+//void setupMenu();
 void updateDisplay();
 
 #endif /* end of include guard:  */
