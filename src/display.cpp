@@ -45,12 +45,14 @@ void setupDisplay() {
 
 void draw(const char* label, int value) {
         display.clearDisplay();
-        display.setTextSize(2);
         display.setTextColor(WHITE);
 
+        display.setTextSize(2);
         display.setCursor(0,0);
         display.print(label);
-        display.setCursor(0,20);
+
+        display.setTextSize(3);
+        display.setCursor(0,32);
         display.print(value);
 }
 
