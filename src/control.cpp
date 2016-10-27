@@ -1,4 +1,5 @@
 #include "control.h"
+#include <MIDI.h>
 #include "Wire.h"
 
 Control::Control(const char* name, byte cc)
@@ -22,4 +23,14 @@ byte Control::get_cc() const
 byte Control::get_cv() const
 {
         return _cv;
+}
+
+void Control::set_cv(byte cv)
+{
+        _cv = cv;
+}
+
+void Control::push_cv() const
+{
+    MIDI.sendControlChange(_cc, _cv, CHANNEL);
 }

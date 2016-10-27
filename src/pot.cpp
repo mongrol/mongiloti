@@ -3,18 +3,28 @@
 #include "control.h"
 #include "display.h"
 
+const int potCount = 10;
 
-Pot pot0 = Pot(POT_A0, "OSC1", 21);
-
-// Pot pot1, pot2, pot3, pot4, pot5, pot6, pot7, pot8, pot9;
-// Pot pots[POTCOUNT] = {
-//         pot0, pot1, pot2, pot3, pot4, pot5, pot6, pot7, pot8, pot9
-// };
-int potValues[POTCOUNT];
+// take this as the Pot midimap
+Pot pots[potCount] {
+        { POT_A0, "OSC1 Shape", 23 },
+        { POT_A1, "OSC2 Shape", 28 },
+        { POT_A2, "OSC Mix", 31 },
+        { POT_A3, "Attack", 73 },
+        { POT_A6, "Decay", 75 },
+        { POT_A7, "Sustain", 79 },
+        { POT_A8, "Release", 72 },
+        { POT_A9, "Cutoff", 74 },
+        { POT_A10, "Resonance", 71 },
+        { POT_A11, "LFO Amnt", 77 }
+};
 
 void setupPots(){
 
-
+        //Set pot initial values
+        for (int i = 0; i<potCount; i++) {
+                pots[i].set_cv(pots[i].read());
+        }
 
         //Attach pots A0-A3
         // for (int i = 0; i<=4; i++) {
@@ -33,11 +43,20 @@ void setupPots(){
 
 void processPots(){
         //scan pots for change
-        Serial.print(pot0.get_name());
-        Serial.print(pot0.get_cc());
-        Serial.print(pot0.read());
+        // Serial.print(pots[0].get_name());
+        // Serial.print(pots[0].get_cc());
+        // Serial.print(pots[0].read());
 
-        draw(pot0.get_name(), pot0.read());
+        for (int i = 0; i<potCount; i++) {
+            if (pots[i].read() != pots[i].get_cv()) {
+                pots[i].set_cv(pots[i].read());
+                pots[i].push_cv();
+                draw(pots[i].get_name(), pots[i].read());
+            } else {
+                //draw(pots[i].get_name(), pots[0].read());
+            }
+        }
+
 
 
 //         for (int i = 0; i<=POTCOUNT; i++) {

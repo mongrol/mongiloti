@@ -2,10 +2,18 @@
 #define POT_H
 #include "control.h"
 #include <MIDI.h>
-#define POTCOUNT 10
 
 #define POT_A0 0
 #define POT_A1 1
+#define POT_A2 2
+#define POT_A3 3
+#define POT_A6 6
+#define POT_A7 7
+#define POT_A8 8
+#define POT_A9 9
+#define POT_A10 10
+#define POT_A11 11
+
 
 void processPots();
 void setupPots();

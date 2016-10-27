@@ -15,7 +15,7 @@
 //MenuSystem ms;
 
 //set Midi channel
-const int channel = 7;
+#define CHANNEL 7
 
 //rgb test
 int rgbon = 155;
@@ -33,13 +33,15 @@ void setup()   {
         Serial.begin(9600);
 
         //setup Midi
-        //MIDI.begin();
+        MIDI.begin();
 
         //setups
         setupDisplay();
+        delay(5000);
+
         //setupMenu();
         //setupEncoder();
-        //setupTrellis();
+        setupTrellis();
 
         //RGB LED's (INPUT because of 5v instead of gnd)
         // pinMode(LED_RED, INPUT);
@@ -54,7 +56,7 @@ void setup()   {
 
         setupPots();
 
-        Serial.print("Setup Complete\n");
+        //MIDI.sendNoteOn(50, 100, CHANNEL);
 }
 
 
@@ -67,9 +69,9 @@ void loop() {
         delay(30); // 30ms delay is required for Trellis, TODO!
 
         //midi test
-        //MIDI.sendNoteOn(50, 100, channel);
-        //delay(1050);
-        //MIDI.sendNoteOff(50, 100, channel);
+        //MIDI.sendNoteOn(50, 100, CHANNEL);
+        //delay(500);
+        //MIDI.sendNoteOff(50, 100, CHANNEL);
 
         //processButton();
         //processEncoder();
