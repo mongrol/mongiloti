@@ -24,6 +24,7 @@ void setupPots(){
         //Set pot initial values
         for (int i = 0; i<potCount; i++) {
                 pots[i].set_cv(pots[i].read());
+                pots[i].push_cv();
         }
 
         //Attach pots A0-A3
@@ -43,9 +44,9 @@ void setupPots(){
 
 void processPots(){
         //scan pots for change
-        // Serial.print(pots[0].get_name());
-        // Serial.print(pots[0].get_cc());
-        // Serial.print(pots[0].read());
+        //Serial.print(pots[0].get_name());
+        //Serial.print(pots[0].get_cc());
+        //Serial.print(pots[0].read());
 
         for (int i = 0; i<potCount; i++) {
             if (pots[i].read() != pots[i].get_cv()) {

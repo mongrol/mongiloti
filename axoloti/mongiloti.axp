@@ -7,7 +7,7 @@
       <params/>
       <attribs/>
    </obj>
-   <patcher type="patch/patcher" uuid="94280811-bbd4-44a6-8b1b-b771e3878bc5" name="OSC" x="308" y="56">
+   <patcher type="patch/patcher" uuid="e42eae10-14de-4bc0-8160-cd1523b83923" name="OSC" x="308" y="56">
       <params/>
       <attribs>
          <combo attributeName="poly" selection="4"/>
@@ -21,31 +21,63 @@
             <params>
                <int32.vradio name="waveform" value="0"/>
                <frac32.s.map name="pitch" value="0.0"/>
-               <frac32.u.map name="shape" value="0.0"/>
-               <frac32.u.map name="amount" value="0.0"/>
+               <frac32.u.map name="shape" value="64.0"/>
+               <frac32.u.map name="amount" MidiCC="23" value="64.0"/>
             </params>
             <attribs/>
          </obj>
-         <obj type="patch/outlet a" uuid="abd8c5fd3b0524a6630f65cad6dc27f6c58e2a3e" name="out" x="294" y="14">
+         <obj type="mix/mix 1" uuid="e8f482af5b1ec4a2e9cf8ac7ce09e7c0e43cea08" name="mix_1" x="336" y="14">
+            <params>
+               <frac32.u.map name="gain1" MidiCC="31" value="32.0"/>
+            </params>
+            <attribs/>
+         </obj>
+         <obj type="patch/outlet a" uuid="abd8c5fd3b0524a6630f65cad6dc27f6c58e2a3e" name="out" x="448" y="14">
             <params/>
             <attribs/>
          </obj>
-         <obj type="patch/inlet f" uuid="5c585d2dcd9c05631e345ac09626a22a639d7c13" name="detune" x="14" y="70">
+         <obj type="patch/inlet f" uuid="5c585d2dcd9c05631e345ac09626a22a639d7c13" name="osc1 shape" x="14" y="70">
             <params/>
+            <attribs/>
+         </obj>
+         <obj type="patch/inlet f" uuid="5c585d2dcd9c05631e345ac09626a22a639d7c13" name="osc2 shape_" x="14" y="126">
+            <params/>
+            <attribs/>
+         </obj>
+         <obj type="beat/osc/multiWave" uuid="50bff098-b6e0-43ff-bf4d-7f946501a55b" name="multiWave_2" x="140" y="280">
+            <params>
+               <int32.vradio name="waveform" value="0"/>
+               <frac32.s.map name="pitch" value="0.0"/>
+               <frac32.u.map name="shape" value="64.0"/>
+               <frac32.u.map name="amount" MidiCC="28" value="64.0"/>
+            </params>
             <attribs/>
          </obj>
          <nets>
             <net>
                <source obj="ptch" outlet="inlet"/>
                <dest obj="multiWave_1" inlet="pitch"/>
+               <dest obj="multiWave_2" inlet="pitch"/>
             </net>
             <net>
-               <source obj="detune" outlet="inlet"/>
+               <source obj="osc1 shape" outlet="inlet"/>
                <dest obj="multiWave_1" inlet="shape"/>
             </net>
             <net>
                <source obj="multiWave_1" outlet="out"/>
+               <dest obj="mix_1" inlet="bus_in"/>
+            </net>
+            <net>
+               <source obj="osc2 shape_" outlet="inlet"/>
+               <dest obj="multiWave_2" inlet="shape"/>
+            </net>
+            <net>
+               <source obj="mix_1" outlet="out"/>
                <dest obj="out" inlet="outlet"/>
+            </net>
+            <net>
+               <source obj="multiWave_2" outlet="out"/>
+               <dest obj="mix_1" inlet="in1"/>
             </net>
          </nets>
          <settings>
@@ -55,18 +87,17 @@
             <NPresetEntries>32</NPresetEntries>
             <NModulationSources>8</NModulationSources>
             <NModulationTargetsPerSource>8</NModulationTargetsPerSource>
-            <Author></Author>
          </settings>
          <notes><![CDATA[]]></notes>
          <windowPos>
-            <x>332</x>
-            <y>173</y>
-            <width>604</width>
-            <height>541</height>
+            <x>389</x>
+            <y>265</y>
+            <width>1287</width>
+            <height>741</height>
          </windowPos>
       </subpatch>
    </patcher>
-   <patcher type="patch/patcher" uuid="9d85d7da-d5a0-4179-99b7-69f6851a6311" name="FILTER" x="518" y="56">
+   <patcher type="patch/patcher" uuid="fd5fa6ed-52cd-4153-8661-2f61b4acdef8" name="FILTER" x="518" y="56">
       <params/>
       <attribs/>
       <subpatch appVersion="1.0.11">
@@ -76,8 +107,8 @@
          </obj>
          <obj type="filter/lp" uuid="1427779cf086ab83c8b03eeeac69c2a97759c651" name="lp_1" x="168" y="112">
             <params>
-               <frac32.s.map name="pitch" MidiCC="28" value="22.0"/>
-               <frac32.u.map name="reso" MidiCC="29" value="0.0"/>
+               <frac32.s.map name="pitch" MidiCC="74" value="22.0"/>
+               <frac32.u.map name="reso" MidiCC="71" value="0.0"/>
             </params>
             <attribs/>
          </obj>
@@ -101,7 +132,7 @@
          <notes><![CDATA[]]></notes>
          <windowPos>
             <x>86</x>
-            <y>589</y>
+            <y>621</y>
             <width>604</width>
             <height>422</height>
          </windowPos>
@@ -111,6 +142,13 @@
       <params/>
       <attribs/>
    </obj>
+   <obj type="gpio/serial/config" uuid="8ec617bbe7b552a58656442e87513d8b4c69833a" name="serial.begin_1" x="14" y="196">
+      <params/>
+      <attribs>
+         <combo attributeName="baudrate" selection="31250"/>
+      </attribs>
+   </obj>
+   <comment type="patch/comment" x="126" y="196" text="show any incoming midi continuous controller message"/>
    <obj type="disp/scope 128 b trig" uuid="11747dcd1dc9afe4919f537c861fb18b80b4e4e" name="scope_2" x="448" y="196">
       <params/>
       <attribs/>
@@ -119,13 +157,25 @@
       <params/>
       <attribs/>
    </obj>
-   <obj type="gpio/serial/config" uuid="8ec617bbe7b552a58656442e87513d8b4c69833a" name="serial.begin_1" x="112" y="280">
-      <params/>
-      <attribs>
-         <combo attributeName="baudrate" selection="31250"/>
-      </attribs>
+   <obj type="midi/in/monitor" uuid="b51863ca-6afa-4d29-acfd-c8c2fe06cb16" name="monitor_1" x="826" y="196">
+      <params>
+         <bool32.tgl name="ControlChange" value="1"/>
+         <bool32.tgl name="Note" value="1"/>
+         <bool32.tgl name="ProgramChange" value="0"/>
+         <bool32.tgl name="Bend" value="0"/>
+         <bool32.tgl name="PolyPressure" value="0"/>
+      </params>
+      <attribs/>
    </obj>
-   <obj type="script/script2" uuid="d39e743cf47c9221f4e99c133430148cf74c68c5" name="script2_1" x="112" y="336">
+   <obj type="midi/in/cc i any" uuid="a5a8957c081888a8175ecd4630479533958e488b" name="ctlini_any_1" x="126" y="224">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="disp/i" uuid="5e35fd0c62d81e70017289250cf28edd26e19e4a" name="dispI_1" x="224" y="224">
+      <params/>
+      <attribs/>
+   </obj>
+   <obj type="script/script2" uuid="d39e743cf47c9221f4e99c133430148cf74c68c5" name="script2_1" x="14" y="252">
       <params/>
       <attribs>
          <text attributeName="script">
@@ -247,26 +297,19 @@ void MidiInByteHandler(uint8_t data) {
   }
 }
 void loop(){
-    char ch = sdGet(&SD2);
-    MidiInByteHandler(ch);	
+	while(!sdGetWouldBlock(&SD2)) {
+		char ch = sdGet(&SD2);
+		MidiInByteHandler(ch);
+	}	
 }]]></sText>
          </text>
       </attribs>
    </obj>
-   <comment type="patch/comment" x="112" y="518" text="show any incoming midi continuous controller message"/>
-   <obj type="midi/in/cc i any" uuid="a5a8957c081888a8175ecd4630479533958e488b" name="ctlini_any_1" x="112" y="546">
+   <obj type="disp/i" uuid="5e35fd0c62d81e70017289250cf28edd26e19e4a" name="dispI_2" x="224" y="280">
       <params/>
       <attribs/>
    </obj>
-   <obj type="disp/i" uuid="5e35fd0c62d81e70017289250cf28edd26e19e4a" name="dispI_1" x="210" y="546">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="disp/i" uuid="5e35fd0c62d81e70017289250cf28edd26e19e4a" name="dispI_2" x="210" y="602">
-      <params/>
-      <attribs/>
-   </obj>
-   <obj type="disp/i" uuid="5e35fd0c62d81e70017289250cf28edd26e19e4a" name="dispI_3" x="210" y="658">
+   <obj type="disp/i" uuid="5e35fd0c62d81e70017289250cf28edd26e19e4a" name="dispI_3" x="224" y="336">
       <params/>
       <attribs/>
    </obj>
@@ -317,9 +360,9 @@ void loop(){
    </settings>
    <notes><![CDATA[sdsa]]></notes>
    <windowPos>
-      <x>73</x>
-      <y>27</y>
+      <x>633</x>
+      <y>261</y>
       <width>1287</width>
-      <height>741</height>
+      <height>709</height>
    </windowPos>
 </patch-1.0>

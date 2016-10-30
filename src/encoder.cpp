@@ -3,6 +3,10 @@
 
 //extern MenuSystem ms;
 
+#define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
+#define CPU_RESTART_VAL 0x5FA0004
+#define CPU_RESTART (*CPU_RESTART_ADDR = CPU_RESTART_VAL);
+
 //set Encoder pins
 Encoder myEnc(7, 6);
 long oldEncoderPosition  = -999;
@@ -14,6 +18,7 @@ void processButton(){
         if (digitalRead(BUTTON) == HIGH) {
                 //draw("button pressed");
                 Serial.print("Button Pressed\n\r");
+                CPU_RESTART
                 //ms.select();
                 //draw();
         } else {
@@ -32,7 +37,7 @@ void processEncoder(){
         }
 }
 
-void setupEncoder(){
+void setupButton(){
 
         // init button - PULLDOWN
         pinMode(BUTTON, INPUT_PULLDOWN);

@@ -6,7 +6,7 @@
 #include <Wire.h>
 
 #include "defines.h"
-// #include "encoder.h"
+#include "encoder.h"
 #include "pot.h"
 #include "trellis.h"
 #include "display.h"
@@ -30,18 +30,18 @@ void setup()   {
 //        pinMode(ledPin, OUTPUT);
 
         //do we need this? Not for MIDI anyway.
-        Serial.begin(9600);
+        //Serial.begin(9600);
 
         //setup Midi
-        MIDI.begin();
 
         //setups
+        //setupTrellis();
+
         setupDisplay();
         delay(5000);
 
         //setupMenu();
-        //setupEncoder();
-        setupTrellis();
+        setupButton();
 
         //RGB LED's (INPUT because of 5v instead of gnd)
         // pinMode(LED_RED, INPUT);
@@ -53,10 +53,13 @@ void setup()   {
         // analogWrite(LED_BLUE, rgboff);
 
         //draw();
+        MIDI.begin();
 
         setupPots();
 
         //MIDI.sendNoteOn(50, 100, CHANNEL);
+        MIDI.sendNoteOn(50, 100, CHANNEL);
+        MIDI.sendNoteOff(50, 100, CHANNEL);
 }
 
 
@@ -73,7 +76,7 @@ void loop() {
         //delay(500);
         //MIDI.sendNoteOff(50, 100, CHANNEL);
 
-        //processButton();
+        processButton();
         //processEncoder();
         processPots();
         //processTrellis();

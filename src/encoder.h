@@ -6,7 +6,7 @@
 //set button - PULLDOWN
 #define BUTTON 2
 
-void setupEncoder();
+void setupButton();
 void processButton();
 void processEncoder();
 
