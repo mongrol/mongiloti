@@ -75,11 +75,20 @@ void loop() {
         //MIDI.sendNoteOn(50, 100, CHANNEL);
         //delay(500);
         //MIDI.sendNoteOff(50, 100, CHANNEL);
-
-        processButton();
-        //processEncoder();
-        processPots();
         //processTrellis();
 
+        //timeout will set back to root Screen
+        //processMenuTimout();
+
+        //moving a pot sets the current display to the pot screen with a timeout
+        processPots();
+
+        //moving encoder cycles the current menu level
+        processEncoder();
+
+        //button press will trigger the menu's callback.
+        processButton();
+
+        //display the currently set screen
         updateDisplay();
 }

@@ -16,7 +16,7 @@ Pot pots[potCount] {
         { POT_A8, "Release", 72 },
         { POT_A9, "Cutoff", 74 },
         { POT_A10, "Resonance", 71 },
-        { POT_A11, "LFO Amnt", 77 }
+        { POT_A11, "Gain", 77 }
 };
 
 void setupPots(){
