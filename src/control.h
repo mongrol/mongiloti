@@ -2,7 +2,6 @@
 
 #ifndef CONTROL_H
 #define CONTROL_H
-#define CHANNEL 7
 
 
 #include "MIDI.h"
