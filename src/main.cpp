@@ -14,8 +14,7 @@
 
 //MenuSystem ms;
 
-//set Midi channel
-#define CHANNEL 7
+
 
 //rgb test
 int rgbon = 155;
@@ -58,8 +57,8 @@ void setup()   {
         setupPots();
 
         //MIDI.sendNoteOn(50, 100, CHANNEL);
-        MIDI.sendNoteOn(50, 100, CHANNEL);
-        MIDI.sendNoteOff(50, 100, CHANNEL);
+        //MIDI.sendNoteOn(50, 100, CHANNEL);
+        //MIDI.sendNoteOff(50, 100, CHANNEL);
 }
 
 

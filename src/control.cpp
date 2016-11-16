@@ -2,6 +2,9 @@
 #include <MIDI.h>
 #include "Wire.h"
 
+//set Midi channel
+#define CHANNEL 1
+
 Control::Control(const char* name, byte cc)
 {
     _name = name;
