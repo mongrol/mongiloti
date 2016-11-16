@@ -13,14 +13,14 @@ parameters of the selected object.*
 
 **Objects**
 
-Object  | Section  | Param1| Param2| Param3| Param4
---|---|--|--|--|--|
-OSC1|OSC   |  |||
-OSC2  |OSC   ||||
-ENV1|Env||||
-ENV2|Env||||
-LFO1| Filters?||||
-LFO2| Filters?||||
-Filter| Filter||||
-FX1| ?||||
-FX2| ?||||
+| Object | Section  | Param1 | Param2 | Param3 | Param4 |
+|--------|----------|--------|--------|--------|--------|
+| OSC1   | OSC      |Pitch        |        |        |        |
+| OSC2   | OSC      |        |        |        |        |
+| ENV1   | Env      |        |        |        |        |
+| ENV2   | Env      |        |        |        |        |
+| LFO1   | Filters? |        |        |        |        |
+| LFO2   | Filters? |        |        |        |        |
+| Filter | Filter   |        |        |        |        |
+| FX1    | ?        |        |        |        |        |
+| FX2    | ?        |        |        |        |        |

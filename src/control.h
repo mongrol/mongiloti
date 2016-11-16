@@ -7,6 +7,31 @@
 
 #include "MIDI.h"
 
+class MenuComponent
+{
+public:
+    MenuComponent(const char* name);
+
+    void set_name(const char* name);
+    const char* get_name() const;
+
+    virtual MenuComponent* select() = 0;
+    virtual MenuComponent* click() = 0;
+    virtual MenuComponent* render() = 0;
+protected:
+    const char* _name;
+};
+
+class Menu : public MenuComponent
+{
+
+};
+
+class MenuItem : public MenuComponent
+{
+
+};
+
 class Control
 {
 public:
