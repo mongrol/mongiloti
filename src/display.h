@@ -10,7 +10,6 @@
 
 void draw(const char* label, int value);
 void setupDisplay();
-//void setupMenu();
 void updateDisplay();
 
 #endif /* end of include guard:  */

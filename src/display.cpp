@@ -10,19 +10,6 @@
 
 Adafruit_SSD1306 display(OLED_RESET);
 
-//extern MenuSystem ms;
-
-// Menu rootMenu("Mongiloti");
-// Menu OSC("");
-// MenuItem OSC_1("Detune");
-// MenuItem OSC_2("Pitch");
-// MenuItem OSC_3("Mix");
-// Menu FIL("");
-// MenuItem FIL_1("Frequency");
-// MenuItem FIL_2("Resonance");
-
-//void onItemSelected(MenuItem* p_menuItem){}
-
 void setupDisplay() {
         display.begin(SSD1306_SWITCHCAPVCC, 0x3d);
         //draw logo
@@ -33,16 +20,6 @@ void setupDisplay() {
         display.display();
         display.invertDisplay(false);
 }
-
-// void setupMenu() {
-//         rootMenu.add_menu(&OSC);
-//         OSC.add_item(&OSC_1, &onItemSelected);
-//         OSC.add_item(&OSC_2, &onItemSelected);
-//         rootMenu.add_menu(&FIL);
-//         FIL.add_item(&FIL_1, &onItemSelected);
-//         ms.set_root_menu(&rootMenu);
-// }
-
 
 void draw(const char* label, int value) {
         display.clearDisplay();
@@ -60,16 +37,3 @@ void draw(const char* label, int value) {
 void updateDisplay(){
         display.display();
 }
-
-// void displayMenu() {
-//   lcd.clear();
-//   lcd.setCursor(0,0);
-//
-//
-//   //lcd.print("Current menu name: ");
-//   lcd.print();
-//
-//   lcd.setCursor(0,1);
-//
-//   lcd.print(cp_menu->get_selected()->get_name());
-// }

@@ -38,8 +38,6 @@ void processEncoder(){
 }
 
 void setupButton(){
-
         // init button - PULLDOWN
         pinMode(BUTTON, INPUT_PULLDOWN);
-
 }

@@ -15,7 +15,7 @@ parameters of the selected object.*
 
 | Object | Section  | Param1 | Param2 | Param3 | Param4 |
 |--------|----------|--------|--------|--------|--------|
-| OSC1   | OSC      |Pitch        |        |        |        |
+| OSC1   | OSC      |Pitch   |        |        |        |
 | OSC2   | OSC      |        |        |        |        |
 | ENV1   | Env      |        |        |        |        |
 | ENV2   | Env      |        |        |        |        |

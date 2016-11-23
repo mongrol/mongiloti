@@ -1,6 +1,5 @@
 #include <Arduino.h>
 
-//#include "MenuSystem.h"
 #include <MIDI.h>
 #include <SPI.h>
 #include <Wire.h>
@@ -10,11 +9,6 @@
 #include "pot.h"
 #include "trellis.h"
 #include "display.h"
-// #include "logo.h"
-
-//MenuSystem ms;
-
-
 
 //rgb test
 int rgbon = 155;
@@ -22,52 +16,30 @@ int rgboff = 255;
 //const int ledPin = 13;
 
 void setup()   {
-
         //???
         analogReadResolution(7);
         analogReadAveraging(8);
-//        pinMode(ledPin, OUTPUT);
-
-        //do we need this? Not for MIDI anyway.
-        //Serial.begin(9600);
-
-        //setup Midi
 
         //setups
-        //setupTrellis();
-
+        setupTrellis();
         setupDisplay();
-        delay(5000);
+        delay(1000); //display logo
 
-        //setupMenu();
         setupButton();
-
-        //RGB LED's (INPUT because of 5v instead of gnd)
-        // pinMode(LED_RED, INPUT);
-        // pinMode(LED_GREEN, INPUT);
-        // pinMode(LED_BLUE, INPUT);
-        // //rgb
-        // analogWrite(LED_RED, rgboff);
-        // analogWrite(LED_GREEN, rgboff);
-        // analogWrite(LED_BLUE, rgboff);
-
-        //draw();
-        MIDI.begin();
-
         setupPots();
 
-        //MIDI.sendNoteOn(50, 100, CHANNEL);
-        //MIDI.sendNoteOn(50, 100, CHANNEL);
-        //MIDI.sendNoteOff(50, 100, CHANNEL);
+        //setup Menu
+        //Populate global array of structs.
+        //Menu struct will contain, Label and a struct of controls
+
+        //Set current Menu item
+        //call MenuRenderer(currentMenuItem)
+        //update the display
+        MIDI.begin();
 }
 
 
 void loop() {
-//     digitalWrite(ledPin, HIGH);   // set the LED on
-//     delay(1000);                  // wait for a second
-//     digitalWrite(ledPin, LOW);    // set the LED off
-//     delay(1000);                  // wait for a second
-
         delay(30); // 30ms delay is required for Trellis, TODO!
 
         //midi test
@@ -79,7 +51,9 @@ void loop() {
         //timeout will set back to root Screen
         //processMenuTimout();
 
-        //moving a pot sets the current display to the pot screen with a timeout
+        //moving a pot sets the current display to the pot screen
+        //triggers a menu render
+        //reset screensaver timeout
         processPots();
 
         //moving encoder cycles the current menu level
@@ -87,6 +61,9 @@ void loop() {
 
         //button press will trigger the menu's callback.
         processButton();
+
+        //if anything under current MenuItem has changed then.
+        //call MenuRenderer(currentMenuItem)
 
         //display the currently set screen
         updateDisplay();
