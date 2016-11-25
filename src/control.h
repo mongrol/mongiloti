@@ -21,15 +21,6 @@ protected:
     const char* _name;
 };
 
-class Menu : public MenuComponent
-{
-
-};
-
-class MenuItem : public MenuComponent
-{
-
-};
 
 class Control
 {

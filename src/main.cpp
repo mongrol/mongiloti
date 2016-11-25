@@ -4,16 +4,21 @@
 #include <SPI.h>
 #include <Wire.h>
 
-#include "defines.h"
 #include "encoder.h"
 #include "pot.h"
 #include "trellis.h"
 #include "display.h"
+#include "menu.h"
 
-//rgb test
-int rgbon = 155;
-int rgboff = 255;
-//const int ledPin = 13;
+int menuIndex = 0;
+bool drawn = true;
+
+MenuItem Menu[MENU_COUNT] {
+        {"OSC1", 14},
+        {"OSC2", 26},
+        {"ENV1", 30},
+        {"ENV2", 21}
+};
 
 void setup()   {
         //???
@@ -27,10 +32,6 @@ void setup()   {
 
         setupButton();
         setupPots();
-
-        //setup Menu
-        //Populate global array of structs.
-        //Menu struct will contain, Label and a struct of controls
 
         //Set current Menu item
         //call MenuRenderer(currentMenuItem)
@@ -63,7 +64,10 @@ void loop() {
         processButton();
 
         //if anything under current MenuItem has changed then.
-        //call MenuRenderer(currentMenuItem)
+        //redraw menu
+        if (!drawn) {
+                drawMenu(menuIndex);
+        }
 
         //display the currently set screen
         updateDisplay();

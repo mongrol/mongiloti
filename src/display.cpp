@@ -3,6 +3,10 @@
 #include "Adafruit_GFX.h"
 #include "display.h"
 #include "logo.h"
+#include "menu.h"
+
+extern int menuIndex;
+extern bool drawn;
 
 //set OLED
 #define SSD1306_128_64
@@ -21,6 +25,12 @@ void setupDisplay() {
         display.invertDisplay(false);
 }
 
+void drawMenu(const int index) {
+
+        Serial.printf("%s\n", menu[1].name );
+        drawn = true;
+}
+
 void draw(const char* label, int value) {
         display.clearDisplay();
         display.setTextColor(WHITE);
@@ -34,6 +44,8 @@ void draw(const char* label, int value) {
         display.print(value);
 }
 
+
 void updateDisplay(){
+
         display.display();
 }
