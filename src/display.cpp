@@ -27,7 +27,13 @@ void setupDisplay() {
 
 void drawMenu(const int index) {
 
-        Serial.printf("%s\n", menu[1].name );
+        Serial.printf("printing: %s\n", menu[index].name );
+        display.clearDisplay();
+        display.setTextColor(WHITE);
+        display.setTextSize(2);
+        display.setCursor(0,0);
+        display.print(menu[index].name);
+
         drawn = true;
 }
 

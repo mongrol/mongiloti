@@ -13,13 +13,6 @@
 int menuIndex = 0;
 bool drawn = true;
 
-MenuItem Menu[MENU_COUNT] {
-        {"OSC1", 14},
-        {"OSC2", 26},
-        {"ENV1", 30},
-        {"ENV2", 21}
-};
-
 void setup()   {
         //???
         analogReadResolution(7);
@@ -41,7 +34,7 @@ void setup()   {
 
 
 void loop() {
-        delay(30); // 30ms delay is required for Trellis, TODO!
+        //delay(30); // 30ms delay is required for Trellis, TODO!
 
         //midi test
         //MIDI.sendNoteOn(50, 100, CHANNEL);

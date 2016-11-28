@@ -5,9 +5,10 @@
 //#include "MenuSystem.h"
 #include "Adafruit_SSD1306.h"
 #include "Adafruit_GFX.h"
+#include "menu.h"
 
 
-
+void drawMenu(const int index);
 void draw(const char* label, int value);
 void setupDisplay();
 void updateDisplay();

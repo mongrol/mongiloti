@@ -1,10 +1,12 @@
 #include "encoder.h"
+#include "menu.h"
 
 #define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
 #define CPU_RESTART_VAL 0x5FA0004
 #define CPU_RESTART (*CPU_RESTART_ADDR = CPU_RESTART_VAL);
 
 extern int menuIndex;
+extern bool drawn;
 
 //set Encoder pins
 Encoder myEnc(7, 6);
@@ -32,6 +34,8 @@ void processEncoder(){
                 oldEncoderPosition = newEncoderPosition;
                 Serial.print(newEncoderPosition);
                 menuIndex++;
+                if (menuIndex == MENU_COUNT){ menuIndex=0;}
+                drawn = false;
                 //ms.next();
                 //draw();
         }
