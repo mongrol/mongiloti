@@ -26,27 +26,10 @@ void setupPots(){
                 pots[i].set_cv(pots[i].read());
                 pots[i].push_cv();
         }
-
-        //Attach pots A0-A3
-        // for (int i = 0; i<=4; i++) {
-        //         pots[i].attach(i);nst
-        //         potValues[i] = pots[i].read();
-        //         Serial.println("Reading pot:" + i );
-        // }
-        //
-        // //Attach pots A6-A11
-        // for (int i = 4; i<=9; i++) {
-        //         pots[i].attach(i+2);
-        //         potValues[i] = pots[i].read();
-        //         Serial.println("Reading pot:" + i );
-        // }
 }
 
 void processPots(){
         //scan pots for change
-        //Serial.print(pots[0].get_name());
-        //Serial.print(pots[0].get_cc());
-        //Serial.print(pots[0].read());
 
         for (int i = 0; i<potCount; i++) {
             if (pots[i].read() != pots[i].get_cv()) {
@@ -57,29 +40,7 @@ void processPots(){
                 //draw(pots[i].get_name(), pots[0].read());
             }
         }
-
-
-
-//         for (int i = 0; i<=POTCOUNT; i++) {
-//                 int potValue = pots[i].read();
-//                 if (potValues[i] != potValue) {
-//                         String label = "pot:";
-//                         label += i;
-//                         label += ":";
-//                         label += potValue;
-// //      draw(label);
-//                         potValues[i] = potValue;
-//                         if (i == 7) {
-//                                 //send filter CC
-// //        MIDI.sendControlChange(21, potValue, channel);
-//                         }
-//                 } else {
-//                         /* draw(999); */
-//                 }
-//         }
 }
-
-
 
 Pot::Pot(int pin, const char* name, byte cc) : Control(name, cc)
 {

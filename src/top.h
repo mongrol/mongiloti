@@ -1,3 +1,8 @@
-//top level called from main.cpp
+#ifndef __TOP_H__
+#define __TOP_H__
 
-#include all.h
+#include "all.h"
+
+void updateState();
+
+#endif /* end of include guard: __TOP_H__ */
