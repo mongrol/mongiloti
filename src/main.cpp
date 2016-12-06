@@ -1,7 +1,7 @@
 
 #include "all.h"
 
-int menuIndex = 0;
+uint8_t menuIndex = 0;
 bool drawn = true;
 
 void setup()   {
@@ -14,8 +14,10 @@ void setup()   {
         setupDisplay();
         delay(1000); //display logo
 
-        setupButton();
-        setupPots();
+        setupState();
+
+        //setupButton();
+        //setupPots();
 
         //update the display
         MIDI.begin();
