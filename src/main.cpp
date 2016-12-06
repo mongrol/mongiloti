@@ -23,11 +23,6 @@ void setup()   {
 
 void loop() {
 
-        //move into updateState()
-        processPots();
-        processEncoder();
-        processButton();
-
         //if anything under current MenuItem has changed then.
         //redraw menu
         if (!drawn) {

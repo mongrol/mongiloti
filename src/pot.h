@@ -20,13 +20,14 @@ void setupPots();
 
 #define SMOOTH_ANALOG_INPUT_SIZE 2
 
-class Pot : public Control {
+class Pot {
 public:
-        Pot(int pin, const char* name, byte cc);
+        Pot(int pin);
         void attach(int pin);
         void scale(int min, int max);
         int read();
         int raw();
+
 private:
         int _samples[SMOOTH_ANALOG_INPUT_SIZE];
         int _pin;

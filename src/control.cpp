@@ -5,18 +5,12 @@
 //set Midi channel
 #define CHANNEL 1
 
-Control::Control(const char* name, byte cc)
+Control::Control(byte cc)
 {
-    _name = name;
     _cc = cc;
 }
 
 Control::Control(){}
-
-const char* Control::get_name() const
-{
-        return _name;
-}
 
 byte Control::get_cc() const
 {

@@ -37,13 +37,13 @@ void drawMenu(const int index) {
         drawn = true;
 }
 
-void draw(const char* label, int value) {
+void draw(int cc, int value) {
         display.clearDisplay();
         display.setTextColor(WHITE);
 
         display.setTextSize(2);
         display.setCursor(0,0);
-        display.print(label);
+        display.print(cc);
 
         display.setTextSize(3);
         display.setCursor(0,32);

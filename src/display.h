@@ -9,7 +9,7 @@
 
 
 void drawMenu(const int index);
-void draw(const char* label, int value);
+void draw(int cc, int value);
 void setupDisplay();
 void updateDisplay();
 
