@@ -1,43 +1,41 @@
 #include "all.h"
 
+// Create Pot objects
+ Pot pots[potCount] {
+        { POT_A0 },
+        { POT_A1 },
+        { POT_A2 },
+        { POT_A3 },
+        { POT_A6 },
+        { POT_A7 },
+        { POT_A8 },
+        { POT_A9 },
+        { POT_A10 },
+        { POT_A11 }
+};
 
+void setupPots(){
 
-// take this as the Pot midimap
-// Pot pots[potCount] {
-//         { POT_A0, "OSC1 Shape", 23 },
-//         { POT_A1, "OSC2 Shape", 28 },
-//         { POT_A2, "OSC Mix", 31 },
-//         { POT_A3, "Attack", 73 },
-//         { POT_A6, "Decay", 75 },
-//         { POT_A7, "Sustain", 79 },
-//         { POT_A8, "Release", 72 },
-//         { POT_A9, "Cutoff", 74 },
-//         { POT_A10, "Resonance", 71 },
-//         { POT_A11, "Gain", 77 }
-// };
+        //Set pot initial values
+        for (int i = 0; i<potCount; i++) {
+                pots[i].control->set_cv(pots[i].read());
+                pots[i].control->push_cv();
+        }
+}
 
-// void setupPots(){
-//
-//         //Set pot initial values
-//         for (int i = 0; i<potCount; i++) {
-//                 pots[i].set_cv(pots[i].read());
-//                 pots[i].push_cv();
-//         }
-// }
-//
-// void processPots(){
-//         //scan pots for change
-//
-//         for (int i = 0; i<potCount; i++) {
-//             if (pots[i].read() != pots[i].get_cv()) {
-//                 pots[i].set_cv(pots[i].read());
-//                 pots[i].push_cv();
-//                 draw(pots[i].get_cc(), pots[i].read());
-//             } else {
-//                 //draw(pots[i].get_name(), pots[0].read());
-//             }
-//         }
-// }
+void processPots(){
+        //scan pots for change
+
+        for (int i = 0; i<potCount; i++) {
+            // if (pots[i].read() != pots[i].get_cv()) {
+            //     pots[i].set_cv(pots[i].read());
+            //     pots[i].push_cv();
+            //     draw(pots[i].get_cc(), pots[i].read());
+            // } else {
+            //     //draw(pots[i].get_name(), pots[0].read());
+            // }
+        }
+}
 
 Pot::Pot(int pin)
 {

@@ -22,7 +22,7 @@ const char *LABEL_FILTER_CUTOFF = "Filter Cutoff";
 const char *LABEL_FILTER_RESONANCE = "Filter Res";
 const char *LABEL_VCA_GAIN = "VCA Gain";
 
-//const int potCount = 10;
+Control controlOSC1Shape(LABEL_OSC1_SHAPE, CC_OSC1_SHAPE);
 
 void setupState()
 {

@@ -1,7 +1,6 @@
 #ifndef POT_H
 #define POT_H
-#include "control.h"
-#include <MIDI.h>
+#include "all.h"
 
 #define POT_A0 0
 #define POT_A1 1
@@ -13,6 +12,8 @@
 #define POT_A9 9
 #define POT_A10 10
 #define POT_A11 11
+
+const int potCount = 10;
 
 
 void processPots();
@@ -27,6 +28,7 @@ public:
         void scale(int min, int max);
         int read();
         int raw();
+        Control* control;
 
 private:
         int _samples[SMOOTH_ANALOG_INPUT_SIZE];
