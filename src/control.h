@@ -11,9 +11,9 @@ class Control
 public:
         Control();
         Control(const char* name, byte cc);
+        const char* get_name();
         byte get_cc() const;
         byte get_cv() const;
-        const char* get_name();
         void set_cv(byte);
         void push_cv() const;
 

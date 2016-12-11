@@ -14,9 +14,13 @@
 
 // CC descriptions and CC number
 // trying to stick to GM Midi standards or Micromonsta maps
+#define CC_OSC1_PITCH 22
 #define CC_OSC1_SHAPE 23
+#define CC_OSC1_MIX 25
+#define CC_OSC2_PITCH 27
 #define CC_OSC2_SHAPE 28
-#define CC_OSC_MIX 31
+#define CC_OSC2_MIX 30
+
 #define CC_ENV1_ATTACK 73
 #define CC_ENV1_DECAY 75
 #define CC_ENV1_SUSTAIN 79
@@ -26,20 +30,32 @@
 #define CC_VCA_GAIN 77
 
 // Strings for Menu labels
-const char *LABEL_OSC1_SHAPE = "OSC1 Shape";
-const char *LABEL_OSC2_SHAPE = "OSC2 Shape";
-const char *LABEL_OSC_MIX = "OSC Mix";
-const char *LABEL_ENV1_ATTACK = "Env1 Atk";
-const char *LABEL_ENV1_DECAY = "Env1 Dcy";
-const char *LABEL_ENV1_SUSTAIN = "Env1 Sus";
-const char *LABEL_ENV1_RELEASE = "Env1 Rel";
+const char *LABEL_OSC1 = "OSC1";
+const char *LABEL_OSC2 = "OSC2";
+const char *LABEL_OSC3 = "OSC3";
+const char *LABEL_PITCH = "Pitch";
+const char *LABEL_SHAPE = "Shape";
+const char *LABEL_MIX = "Mix";
+const char *LABEL_ENV1 = "Env1";
+const char *LABEL_ENV2 = "Env2";
+
+const char *LABEL_ATTACK = "Attack";
+const char *LABEL_DECAY = "Decay";
+const char *LABEL_SUSTAIN = "Sustain";
+const char *LABEL_RELEASE = "Release";
 const char *LABEL_FILTER_CUTOFF = "Filter Cutoff";
 const char *LABEL_FILTER_RESONANCE = "Filter Res";
 const char *LABEL_VCA_GAIN = "VCA Gain";
 
 //Create a static bunch of controls
 //Each control has a label, a CC and a CV (current value)
-Control controlOSC1Shape(LABEL_OSC1_SHAPE, CC_OSC1_SHAPE);
+Control controlOSC1Shape(LABEL_SHAPE, CC_OSC1_SHAPE);
+Control controlOSC1Pitch(LABEL_PITCH, CC_OSC1_PITCH);
+Control controlOSC1Mix(LABEL_MIX, CC_OSC1_MIX);
+
+Control controlOSC2Shape(LABEL_SHAPE, CC_OSC2_SHAPE);
+Control controlOSC2Pitch(LABEL_PITCH, CC_OSC2_PITCH);
+Control controlOSC2Mix(LABEL_MIX, CC_OSC2_MIX);
 
 // Create Pot objects
 // Each Pot has a pointer to a valid Control.
@@ -48,9 +64,9 @@ Control controlOSC1Shape(LABEL_OSC1_SHAPE, CC_OSC1_SHAPE);
 const int potCount = 10;
 
 Pot pots[potCount] {
-        { POT_A0, &controlOSC1Shape },
-        { POT_A1 },
-        { POT_A2 },
+        { POT_A0, &controlOSC1Pitch },
+        { POT_A1, &controlOSC1Shape },
+        { POT_A2, &controlOSC1Mix },
         { POT_A3 },
         { POT_A6 },
         { POT_A7 },
@@ -61,10 +77,13 @@ Pot pots[potCount] {
 };
 
 
+
+State menuState;
+
 void setupState()
 {
-        //setup controls
-
+        //setup default controls
+        menuState = STATE_TOP;
         //setup AxoGroup
 }
 
@@ -78,4 +97,6 @@ void updateState()
         //processEncoder();
         processButton();
         processTrellis();
+
+        drawMenu(&pots[0]);
 }

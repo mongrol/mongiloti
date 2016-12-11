@@ -1,15 +1,16 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include <Arduino.h>
-//#include "MenuSystem.h"
+#include "all.h"
+#include "logo.h"
 #include "Adafruit_SSD1306.h"
 #include "Adafruit_GFX.h"
-#include "menu.h"
 
+extern State menuState;
 
-void drawMenu(const int index);
+void drawMenu(Pot * pot);
 void draw(int cc, int value);
+void draw(const char* label);
 void setupDisplay();
 void updateDisplay();
 

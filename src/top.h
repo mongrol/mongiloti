@@ -3,6 +3,12 @@
 
 #include "all.h"
 
+enum State {
+  STATE_TOP,
+  STATE_OSC1,
+  STATE_OSC2
+};
+
 void setupState();
 void updateState();
 

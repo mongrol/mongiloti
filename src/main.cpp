@@ -25,11 +25,6 @@ void setup()   {
 
 void loop() {
 
-        //if anything under current MenuItem has changed then.
-        //redraw menu
-        if (!drawn) {
-                drawMenu(menuIndex);
-        }
 
         updateState();
         //display the currently set screen

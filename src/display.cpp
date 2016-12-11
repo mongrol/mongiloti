@@ -1,10 +1,4 @@
-#include <Arduino.h>
-#include "Adafruit_SSD1306.h"
-#include "Adafruit_GFX.h"
-#include "display.h"
-#include "logo.h"
-#include "menu.h"
-
+#include "all.h"
 extern int menuIndex;
 extern bool drawn;
 
@@ -37,12 +31,32 @@ void drawMenu(const int index) {
         drawn = true;
 }
 
-void draw(int cc, int value) {
+void drawMenu(Pot * pot) {
         display.clearDisplay();
         display.setTextColor(WHITE);
 
+        //set for top tow. Menu Label
         display.setTextSize(2);
         display.setCursor(0,0);
+        display.print(pot->p_control->get_name());
+
+        display.drawLine(0, 16, display.width()-1, 16, WHITE);
+
+        //set row 2
+        display.setTextSize(1);
+        display.setCursor(0,22);
+        display.print(pot->p_control->get_name());
+
+        //set row 3
+        display.setTextSize(3);
+        display.setCursor(0,36);
+        display.print("0123456");
+
+}
+
+void draw(int cc, int value) {
+
+
         display.print(cc);
 
         display.setTextSize(3);
@@ -52,6 +66,7 @@ void draw(int cc, int value) {
 
 
 void updateDisplay(){
+
 
         display.display();
 }
