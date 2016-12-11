@@ -1,13 +1,13 @@
- 
-* TODO Teensy GPIO Table
 
-| Works |   | Cmpnt         | Req                   |     Pin | Anlg | Cm pin  | Type             |
+* Teensy GPIO Table
+
+| Works |   | Component     | Requires              |(tnsy)Pin| Anlg | Cmpnt pin| Type             |
 |-------+---+---------------+-----------------------+---------+------+---------+------------------|
 | y     | y | Pot 9         |                       |         | A10  |         | Reverse          |
 | y     | y | Pot 10        |                       |         | A11  |         | Reverse          |
-| y     | y | UART          | 1x                    |       0 |      | PA2     | Rx               |
-| y     | y | Midi          | 1x                    |       1 |      | PA3     | Tx               |
-| y     | y | Encoder Btn   | 1xdig, 3v             |       2 |      | 5 ?     | Dig              |
+| y     | y | UART (Midircv)| 1x                    |       0 |      | Axo PA2 | Rx               |
+| y     | y | UART (Midisnd)| 1x                    |       1 |      | Axo PA3 | Tx               |
+| y     | y | Encoder Btn   | 1xdig, 3v             |       2 |      | 5       | Dig              |
 |       | y | Encoder green | DANGER                |       3 |      | 2       | Dig              |
 |       | y | Encoder red   | DANGER                |       4 |      | 1       | Dig              |
 |       | y | Encoder blue  | DANGER                |       5 |      | 4       | Dig              |
@@ -37,44 +37,19 @@
 |       |   | FSR           |                       | Axo PA7 |      | 1 4.7k   | Dig >1M pullup?  |
 |       |   |               |                       |         |      |         |                  |
 
-* Function Table
-
-|  # | Name          | GPIO | Section | Comments | New |
-|----+---------------+------+---------+----------+-----|
-|  1 | Detune        |      | OSC     | Supersaw |     |
-|  2 | PWM Width     |      | OSC     | PWM      |     |
-|  3 | OSC mix       |      | OSC     |          |     |
-|  4 | lfo 1 freq    |      | LFO     |          |     |
-|  5 | lfo 2 freq    |      | LFO     |          |     
-|  6 | filter pitch  |      | filter  |          |     |
-|  7 | filter res    |      | filter  |          |     |
-|  8 | Attack        |      | Env     |          |     |
-|  9 | Decay/Release |      | Env     |          |     |
-| 10 | Sustain       |      | Env     |          |     |
-|    | Volume        |      | VCA     |          | Enc |
-|    | Reverb am     |      | FX      |          | Enc |
-|    | Reverb Decay  |      | FX      |          | Enc |
-|    | delay fdbck   |      | FX      |          | Enc |
-|    | delay time    |      | FX      |          | Enc |
-| A0 | Pitch (slide) | Axo  | OSC     |          |     |
-| A1 | Gate (slide)  | Axo  | OSC     |          |     |
 
 * Matrix
-| *           | LFO1    | LFO2     | Env     |
-|-------------+---------+----------+---------|
-| Pitch       |         |          |         |
-| PWM         |         |          |         |
-| Filter freq |         |          |         |
-| LFO1 Freq   | -       |          |         |
-|-------------+---------+----------+---------|
-|             | lfo amt | lfo2 amt | Env amt |
-|             | Enc     | Enc      | Enc     |
+| *           | LFO1    | LFO2     | Env1    | Env2 |
+|-------------+---------+----------+---------|------|
+| OSC1        |         |          |         |      |
+| OSC2        |         |          |         |      |
+| Filter freq |         |          |         |      |
+| LFO1 Freq   | -       |          |         |      |
+|-------------+---------+----------+---------|------|
 
-  
 * Trellis pin order
 
-Note: Upside down 
-
+Note: Upside down
 SDA
 SCL
 GND
@@ -85,10 +60,8 @@ INT
 GND y
 3v3 y
 5v
-CS 
+CS
 MOSI (DIN)
 SCK (CLK)
 MISO (DOUT)
 GND
-
-

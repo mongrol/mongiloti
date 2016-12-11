@@ -1,25 +1,14 @@
 #include "all.h"
 
-// Create Pot objects
- Pot pots[potCount] {
-        { POT_A0 },
-        { POT_A1 },
-        { POT_A2 },
-        { POT_A3 },
-        { POT_A6 },
-        { POT_A7 },
-        { POT_A8 },
-        { POT_A9 },
-        { POT_A10 },
-        { POT_A11 }
-};
+extern int potCount;
+extern Pot pots[];
 
 void setupPots(){
 
         //Set pot initial values
         for (int i = 0; i<potCount; i++) {
-                pots[i].control->set_cv(pots[i].read());
-                pots[i].control->push_cv();
+                pots[i].p_control->set_cv(pots[i].read());
+                pots[i].p_control->push_cv();
         }
 }
 
@@ -39,6 +28,17 @@ void processPots(){
 
 Pot::Pot(int pin)
 {
+        _pin = pin;
+        _index = -1;
+        _mapMax = 1024;
+        _mapMin = 0;
+        _res = 1;
+        attach(_pin);
+}
+
+Pot::Pot(int pin, Control * control)
+{
+        p_control = control;
         _pin = pin;
         _index = -1;
         _mapMax = 1024;

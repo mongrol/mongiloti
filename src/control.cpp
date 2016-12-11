@@ -5,11 +5,12 @@
 
 Control::Control(const char* name, byte cc)
 {
-    _cc = cc;
-    _name = name;
+        _cc = cc;
+        _name = name;
 }
 
-Control::Control(){}
+Control::Control(){
+}
 
 byte Control::get_cc() const
 {
@@ -23,7 +24,7 @@ byte Control::get_cv() const
 
 const char* Control::get_name()
 {
-      return _name;
+        return _name;
 }
 
 void Control::set_cv(byte cv)
@@ -33,5 +34,5 @@ void Control::set_cv(byte cv)
 
 void Control::push_cv() const
 {
-    MIDI.sendControlChange(_cc, _cv, CHANNEL);
+        MIDI.sendControlChange(_cc, _cv, CHANNEL);
 }
