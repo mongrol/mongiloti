@@ -1,8 +1,7 @@
 
 #include "all.h"
 
-uint8_t menuIndex = 0;
-bool drawn = true;
+
 
 void setup()   {
         //???
@@ -14,7 +13,6 @@ void setup()   {
         setupDisplay();
         delay(1000); //display logo
 
-        setupState();
 
         //setupButton();
         //setupPots();
@@ -26,7 +24,7 @@ void setup()   {
 void loop() {
 
 
-        updateState();
+        update();
         //display the currently set screen
         updateDisplay();
 }

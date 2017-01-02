@@ -7,10 +7,11 @@
 #include <SPI.h>
 #include <Wire.h>
 
+#include "top.h"
+
 #include "control.h"
 #include "encoder.h"
 #include "pot.h"
-#include "top.h"
 #include "trellis.h"
 #include "display.h"
 #include "menu.h"

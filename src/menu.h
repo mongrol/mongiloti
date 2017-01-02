@@ -3,14 +3,12 @@
 
 #include "all.h"
 
-#define MENU_COUNT 4
-#define MENU_TIMEOUT 5
 
 class MenuItem
 {
 public:
         MenuItem();
-        MenuItem(const char* name, byte cc);
+        MenuItem(const char* name);
         const char* get_name();
         Control * controls[4];
 

@@ -6,8 +6,8 @@
 #include "Adafruit_SSD1306.h"
 #include "Adafruit_GFX.h"
 
-extern State menuState;
 
+void drawMenu(const int index);
 void drawMenu(Pot * pot);
 void draw(int cc, int value);
 void draw(const char* label);

@@ -2,6 +2,7 @@
 #define ENCODER_H
 
 #include <Encoder.h>
+#include "all.h"
 
 //set button - PULLDOWN
 #define BUTTON 2

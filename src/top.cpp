@@ -12,6 +12,7 @@
 #define POT_A10 10
 #define POT_A11 11
 
+
 // CC descriptions and CC number
 // trying to stick to GM Midi standards or Micromonsta maps
 #define CC_OSC1_PITCH 22
@@ -20,6 +21,9 @@
 #define CC_OSC2_PITCH 27
 #define CC_OSC2_SHAPE 28
 #define CC_OSC2_MIX 30
+#define CC_OSC3_PITCH 31
+#define CC_OSC3_SHAPE 32
+#define CC_OSC3_MIX 33
 
 #define CC_ENV1_ATTACK 73
 #define CC_ENV1_DECAY 75
@@ -48,7 +52,7 @@ const char *LABEL_FILTER_RESONANCE = "Filter Res";
 const char *LABEL_VCA_GAIN = "VCA Gain";
 
 //Create a static bunch of controls
-//Each control has a label, a CC and a CV (current value)
+//Each control has a label, a CC assigned
 Control controlOSC1Shape(LABEL_SHAPE, CC_OSC1_SHAPE);
 Control controlOSC1Pitch(LABEL_PITCH, CC_OSC1_PITCH);
 Control controlOSC1Mix(LABEL_MIX, CC_OSC1_MIX);
@@ -57,11 +61,16 @@ Control controlOSC2Shape(LABEL_SHAPE, CC_OSC2_SHAPE);
 Control controlOSC2Pitch(LABEL_PITCH, CC_OSC2_PITCH);
 Control controlOSC2Mix(LABEL_MIX, CC_OSC2_MIX);
 
+Control controlOSC3Shape(LABEL_SHAPE, CC_OSC3_SHAPE);
+Control controlOSC3Pitch(LABEL_PITCH, CC_OSC3_PITCH);
+Control controlOSC3Mix(LABEL_MIX, CC_OSC3_MIX);
+
 // Create Pot objects
 // Each Pot has a pointer to a valid Control.
 // When we switch menu's the pointer may point to a different Control
 
 const int potCount = 10;
+bool drawn = true;
 
 Pot pots[potCount] {
         { POT_A0, &controlOSC1Pitch },
@@ -76,27 +85,30 @@ Pot pots[potCount] {
         { POT_A11 }
 };
 
+int menuIndex = 0;
+
+// Create menu objects.
+// Each menu has a label and some controls
+
+MenuItem menu[MENU_COUNT] {
+    { LABEL_OSC1 },
+    { LABEL_OSC2 },
+    { LABEL_OSC3 }
+};
 
 
-State menuState;
 
-void setupState()
-{
-        //setup default controls
-        menuState = STATE_TOP;
-        //setup AxoGroup
-}
 
-void updateState()
+void update()
 {
         //tests
         //Serial.printf(pots[0].p_control->get_name());
 
         //check devices for change
         //processPots();
-        //processEncoder();
+        processEncoder();
         processButton();
         processTrellis();
 
-        drawMenu(&pots[0]);
+        drawMenu(menuIndex);
 }

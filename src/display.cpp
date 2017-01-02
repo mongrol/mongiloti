@@ -1,6 +1,7 @@
 #include "all.h"
 extern int menuIndex;
 extern bool drawn;
+extern MenuItem menu[3];
 
 //set OLED
 #define SSD1306_128_64
@@ -21,14 +22,14 @@ void setupDisplay() {
 
 void drawMenu(const int index) {
 
-        Serial.printf("printing: %s\n", menu[index].name );
+        Serial.printf("printing: %s ", menu[index].get_name() );
         display.clearDisplay();
         display.setTextColor(WHITE);
         display.setTextSize(2);
         display.setCursor(0,0);
-        display.print(menu[index].name);
+        display.print(menu[index].get_name());
 
-        drawn = true;
+        //drawn = true;
 }
 
 void drawMenu(Pot * pot) {

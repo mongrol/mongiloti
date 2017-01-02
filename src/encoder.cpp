@@ -1,5 +1,4 @@
-#include "encoder.h"
-#include "menu.h"
+#include "all.h"
 
 #define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
 #define CPU_RESTART_VAL 0x5FA0004

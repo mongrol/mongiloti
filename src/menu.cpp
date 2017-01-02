@@ -1,15 +1,15 @@
 #include "all.h"
 
 
-Control::Control(const char* name, byte cc)
+MenuItem::MenuItem(const char* name)
 {
         _name = name;
 }
 
-Control::Control(){
+MenuItem::MenuItem(){
 }
 
-const char* Control::get_name()
+const char* MenuItem::get_name()
 {
         return _name;
 }
