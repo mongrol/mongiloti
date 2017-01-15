@@ -11,7 +11,7 @@ void setupPots();
 class Pot {
 public:
         Pot(int pin);
-        Pot(int pin, Control * control);
+        Pot(int pin, Control* control);
         void attach(int pin);
         void scale(int min, int max);
         int read();

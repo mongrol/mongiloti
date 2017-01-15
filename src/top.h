@@ -4,7 +4,7 @@
 #include "all.h"
 
 #define MENU_COUNT 3
-
+#define POTCOUNT 3
 
 enum State {
   STATE_TOP,
@@ -12,6 +12,20 @@ enum State {
   STATE_OSC2
 };
 
+struct Control {
+  const char* _name;
+  byte cc;
+  byte cv;
+};
+
+struct MenuItem {
+        const char* _name;
+        struct Control* _c1;
+        struct Control* _c2;
+        struct Control* _c3;
+};
+
+void push_cv(byte cc, byte cv);
 void update();
 
 #endif /* end of include guard: __TOP_H__ */

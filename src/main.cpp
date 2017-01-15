@@ -15,15 +15,13 @@ void setup()   {
 
 
         //setupButton();
-        //setupPots();
+        setupPots();
 
         //update the display
         MIDI.begin();
 }
 
 void loop() {
-
-
         update();
         //display the currently set screen
         updateDisplay();

@@ -1,28 +1,28 @@
 #include "all.h"
 
-extern int potCount;
 extern Pot pots[];
 
 void setupPots(){
 
         //Set pot initial values
-        for (int i = 0; i<potCount; i++) {
-                pots[i].p_control->set_cv(pots[i].read());
-                pots[i].p_control->push_cv();
+        for (int i = 0; i<POTCOUNT; i++) {
+                pots[i].p_control->cv = pots[i].read();
+                push_cv(pots[i].p_control->cc, pots[i].p_control->cv);
+                Serial.printf("Setting %s CC:%d to %d\n",pots[i].p_control->_name, pots[i].p_control->cc, pots[i].p_control->cv );
         }
 }
 
 void processPots(){
         //scan pots for change
-
-        for (int i = 0; i<potCount; i++) {
-            // if (pots[i].read() != pots[i].get_cv()) {
-            //     pots[i].set_cv(pots[i].read());
-            //     pots[i].push_cv();
-            //     draw(pots[i].get_cc(), pots[i].read());
-            // } else {
-            //     //draw(pots[i].get_name(), pots[0].read());
-            // }
+        for (int i = 0; i < POTCOUNT; i++) {
+            if (pots[i].read() != pots[i].p_control->cv) {
+                pots[i].p_control->cv=(pots[i].read());
+                push_cv(pots[i].p_control->cc, pots[i].p_control->cv);
+                Serial.printf("Setting %s CC:%d to %d\n",pots[i].p_control->_name, pots[i].p_control->cc, pots[i].p_control->cv );
+                draw(pots[i].p_control->cc, pots[i].read());
+            } else {
+                //draw(pots[i].get_name(), pots[0].read());
+            }
         }
 }
 

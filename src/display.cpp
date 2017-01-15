@@ -1,7 +1,7 @@
 #include "all.h"
-extern int menuIndex;
-extern bool drawn;
-extern MenuItem menu[3];
+//extern int menuIndex;
+//extern bool drawn;
+//extern MenuItem menu[3];
 
 //set OLED
 #define SSD1306_128_64
@@ -22,13 +22,22 @@ void setupDisplay() {
 
 void drawMenu(const int index) {
 
-        Serial.printf("printing: %s ", menu[index].get_name() );
+        //Serial.printf("printing: %s ", menu[index].get_name() );
         display.clearDisplay();
         display.setTextColor(WHITE);
         display.setTextSize(2);
         display.setCursor(0,0);
-        display.print(menu[index].get_name());
+        //display.print(menu[index].get_name());
 
+        //set row 2
+        display.setTextSize(1);
+        display.setCursor(0,22);
+        //display.print(menu[index]._controls[0]->get_name());
+
+        //set row 3
+        display.setTextSize(1);
+        display.setCursor(0,30);
+        //display.print(menu[index]._controlCount);
         //drawn = true;
 }
 
@@ -39,14 +48,14 @@ void drawMenu(Pot * pot) {
         //set for top tow. Menu Label
         display.setTextSize(2);
         display.setCursor(0,0);
-        display.print(pot->p_control->get_name());
+        //display.print(pot->p_control->get_name());
 
         display.drawLine(0, 16, display.width()-1, 16, WHITE);
 
         //set row 2
         display.setTextSize(1);
         display.setCursor(0,22);
-        display.print(pot->p_control->get_name());
+        //display.print(pot->p_control->get_name());
 
         //set row 3
         display.setTextSize(3);

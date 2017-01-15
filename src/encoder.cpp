@@ -34,7 +34,7 @@ void processEncoder(){
                 Serial.print(newEncoderPosition);
                 menuIndex++;
                 if (menuIndex == MENU_COUNT){ menuIndex=0;}
-                drawn = false;
+                //drawn = false;
                 //ms.next();
                 //draw();
         }

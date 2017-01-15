@@ -1,5 +1,8 @@
 #include "all.h"
 
+//MIDI Channel
+#define CHANNEL 1
+
 // POT to pin
 #define POT_A0 0
 #define POT_A1 1
@@ -51,52 +54,49 @@ const char *LABEL_FILTER_CUTOFF = "Filter Cutoff";
 const char *LABEL_FILTER_RESONANCE = "Filter Res";
 const char *LABEL_VCA_GAIN = "VCA Gain";
 
-//Create a static bunch of controls
-//Each control has a label, a CC assigned
-Control controlOSC1Shape(LABEL_SHAPE, CC_OSC1_SHAPE);
-Control controlOSC1Pitch(LABEL_PITCH, CC_OSC1_PITCH);
-Control controlOSC1Mix(LABEL_MIX, CC_OSC1_MIX);
+//Create control structs
+//Each control has a label, a CC assigned and holds the current value of the CC
+Control controlOSC1Shape = { LABEL_SHAPE, CC_OSC1_SHAPE, 0 };
+Control controlOSC1Pitch = { LABEL_PITCH, CC_OSC1_PITCH, 0 };
+Control controlOSC1Mix = { LABEL_MIX, CC_OSC1_MIX, 0 };
 
-Control controlOSC2Shape(LABEL_SHAPE, CC_OSC2_SHAPE);
-Control controlOSC2Pitch(LABEL_PITCH, CC_OSC2_PITCH);
-Control controlOSC2Mix(LABEL_MIX, CC_OSC2_MIX);
+Control controlOSC2Shape = { LABEL_SHAPE, CC_OSC2_SHAPE, 0 };
+Control controlOSC2Pitch = { LABEL_PITCH, CC_OSC2_PITCH, 0 };
+Control controlOSC2Mix = { LABEL_MIX, CC_OSC2_MIX, 0 };
 
-Control controlOSC3Shape(LABEL_SHAPE, CC_OSC3_SHAPE);
-Control controlOSC3Pitch(LABEL_PITCH, CC_OSC3_PITCH);
-Control controlOSC3Mix(LABEL_MIX, CC_OSC3_MIX);
+Control controlOSC3Shape = { LABEL_SHAPE, CC_OSC3_SHAPE, 0 };
+Control controlOSC3Pitch = { LABEL_PITCH, CC_OSC3_PITCH, 0 };
+Control controlOSC3Mix = { LABEL_MIX, CC_OSC3_MIX, 0 };
+
+int menuIndex = 0;
+
+// Create menu objects.
+// Each menu has a label and pointers to control structs
+
 
 // Create Pot objects
 // Each Pot has a pointer to a valid Control.
 // When we switch menu's the pointer may point to a different Control
 
-const int potCount = 10;
 bool drawn = true;
 
-Pot pots[potCount] {
+Pot pots[POTCOUNT] {
         { POT_A0, &controlOSC1Pitch },
         { POT_A1, &controlOSC1Shape },
-        { POT_A2, &controlOSC1Mix },
-        { POT_A3 },
-        { POT_A6 },
-        { POT_A7 },
-        { POT_A8 },
-        { POT_A9 },
-        { POT_A10 },
-        { POT_A11 }
+        { POT_A2, &controlOSC1Mix }
+        // { POT_A3 },
+        // { POT_A6 },
+        // { POT_A7 },
+        // { POT_A8 },
+        // { POT_A9 },
+        // { POT_A10 },
+        // { POT_A11 }
 };
 
-int menuIndex = 0;
-
-// Create menu objects.
-// Each menu has a label and some controls
-
-MenuItem menu[MENU_COUNT] {
-    { LABEL_OSC1 },
-    { LABEL_OSC2 },
-    { LABEL_OSC3 }
-};
-
-
+void push_cv(byte cc, byte cv)
+{
+        MIDI.sendControlChange(cc, cv, CHANNEL);
+}
 
 
 void update()
@@ -105,8 +105,8 @@ void update()
         //Serial.printf(pots[0].p_control->get_name());
 
         //check devices for change
-        //processPots();
-        processEncoder();
+        processPots();
+        //processEncoder();
         processButton();
         processTrellis();
 
