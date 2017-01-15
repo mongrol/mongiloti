@@ -1,7 +1,7 @@
 #include "all.h"
-//extern int menuIndex;
+extern int menuIndex;
 //extern bool drawn;
-//extern MenuItem menu[3];
+extern MenuItem menu[1];
 
 //set OLED
 #define SSD1306_128_64
@@ -27,18 +27,17 @@ void drawMenu(const int index) {
         display.setTextColor(WHITE);
         display.setTextSize(2);
         display.setCursor(0,0);
-        //display.print(menu[index].get_name());
+        display.print(menu[index]._name);
 
         //set row 2
         display.setTextSize(1);
         display.setCursor(0,22);
-        //display.print(menu[index]._controls[0]->get_name());
+        display.print(menu[index]._c1._name);
 
         //set row 3
         display.setTextSize(1);
         display.setCursor(0,30);
-        //display.print(menu[index]._controlCount);
-        //drawn = true;
+        display.print(menu[index]._c1.cv);
 }
 
 void drawMenu(Pot * pot) {

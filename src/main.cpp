@@ -11,13 +11,11 @@ void setup()   {
         //setups
         setupTrellis();
         setupDisplay();
-        delay(1000); //display logo
+        delay(1000); //display logo for a second
 
-
-        //setupButton();
+        setupButton();
         setupPots();
 
-        //update the display
         MIDI.begin();
 }
 

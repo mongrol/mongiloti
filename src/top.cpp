@@ -73,6 +73,9 @@ int menuIndex = 0;
 // Create menu objects.
 // Each menu has a label and pointers to control structs
 
+MenuItem menu[1] {
+  { LABEL_OSC1, controlOSC1Pitch, controlOSC1Shape, controlOSC1Mix }
+};
 
 // Create Pot objects
 // Each Pot has a pointer to a valid Control.
@@ -109,6 +112,5 @@ void update()
         //processEncoder();
         processButton();
         processTrellis();
-
         drawMenu(menuIndex);
 }
