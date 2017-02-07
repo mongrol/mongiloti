@@ -9,8 +9,8 @@ extern bool drawn;
 
 //set Encoder pins
 Encoder myEnc(7, 6);
-long oldEncoderPosition  = -999;
-long newEncoderPosition = 10;
+long oldEncoderPosition  = 0;
+long newEncoderPosition = 0;
 
 void processButton(){
 
@@ -28,7 +28,7 @@ void processButton(){
 
 void processEncoder(){
 
-        newEncoderPosition = myEnc.read();
+        newEncoderPosition = myEnc.read()/4;
         if (newEncoderPosition != oldEncoderPosition) {
                 oldEncoderPosition = newEncoderPosition;
                 Serial.print(newEncoderPosition);

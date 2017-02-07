@@ -1,6 +1,7 @@
 #include "all.h"
 
 extern Pot pots[];
+extern int menuIndex;
 
 void setupPots(){
 
@@ -10,16 +11,22 @@ void setupPots(){
                 push_cv(pots[i].p_control->cc, pots[i].p_control->cv);
                 Serial.printf("Setting %s CC:%d to %d\n",pots[i].p_control->_name, pots[i].p_control->cc, pots[i].p_control->cv );
         }
+
 }
 
 void processPots(){
         //scan pots for change
         for (int i = 0; i < POTCOUNT; i++) {
             if (pots[i].read() != pots[i].p_control->cv) {
+              // pot has changed so set new cc value
                 pots[i].p_control->cv=(pots[i].read());
+                // push the cc to axoloti
                 push_cv(pots[i].p_control->cc, pots[i].p_control->cv);
-                Serial.printf("Setting %s CC:%d to %d\n",pots[i].p_control->_name, pots[i].p_control->cc, pots[i].p_control->cv );
-                draw(pots[i].p_control->cc, pots[i].read());
+                // switch menu to that controls
+                menuIndex = pots[i]._menuNum;
+
+                //Serial.printf("Setting %s CC:%d to %d\n",pots[i].p_control->_name, pots[i].p_control->cc, pots[i].p_control->cv );
+                //draw(pots[i].p_control->cc, pots[i].read());
             } else {
                 //draw(pots[i].get_name(), pots[0].read());
             }
@@ -36,9 +43,10 @@ Pot::Pot(int pin)
         attach(_pin);
 }
 
-Pot::Pot(int pin, Control * control)
+Pot::Pot(int pin, Control * control, int menuNum)
 {
         p_control = control;
+        _menuNum = menuNum;
         _pin = pin;
         _index = -1;
         _mapMax = 1024;

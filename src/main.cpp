@@ -2,7 +2,6 @@
 #include "all.h"
 
 
-
 void setup()   {
         //???
         analogReadResolution(7);
@@ -15,8 +14,10 @@ void setup()   {
 
         setupButton();
         setupPots();
-
         MIDI.begin();
+
+        drawMenu(0);
+
 }
 
 void loop() {

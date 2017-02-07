@@ -1,7 +1,7 @@
 #include "all.h"
 extern int menuIndex;
 //extern bool drawn;
-extern MenuItem menu[1];
+extern MenuItem menu[3];
 
 //set OLED
 #define SSD1306_128_64
@@ -22,22 +22,51 @@ void setupDisplay() {
 
 void drawMenu(const int index) {
 
-        //Serial.printf("printing: %s ", menu[index].get_name() );
+        int x=20, y=0, w=16, h=16;
+
+        //print label - Must be 4 chars long
         display.clearDisplay();
-        display.setTextColor(WHITE);
+        display.fillRect(0,0,16,64,WHITE);
+        display.drawLine(x+w*4,0,x+w*4,64, WHITE);
+
+
+        display.setTextColor(BLACK);
         display.setTextSize(2);
-        display.setCursor(0,0);
-        display.print(menu[index]._name);
+        display.setCursor(3,1);
+        display.print(menu[index]._name[0]);
+        display.setCursor(3,17);
+        display.print(menu[index]._name[1]);
+        display.setCursor(3,33);
+        display.print(menu[index]._name[2]);
+        display.setCursor(3,49);
+        display.print(menu[index]._name[3]);
 
-        //set row 2
-        display.setTextSize(1);
-        display.setCursor(0,22);
-        display.print(menu[index]._c1._name);
 
-        //set row 3
-        display.setTextSize(1);
-        display.setCursor(0,30);
-        display.print(menu[index]._c1.cv);
+        display.setTextColor(WHITE);
+
+        display.setCursor(x,y);
+
+        //print 1st pot
+        for (int i=0; i<=menu[index]._cNum;i++){
+          display.setTextSize(2);
+          display.print(menu[index]._c1._name);
+          display.setCursor(x+w*4+6,0);
+          display.print(menu[index]._c1.cv);
+          display.drawLine(x,h+1,128,h+1, WHITE);
+        }
+
+
+        //2nd pot
+        // display.setCursor(64,24);
+        // display.print(menu[index]._c2._name);
+        // display.setCursor(64,36);
+        // display.print(menu[index]._c2.cv);
+        //
+        // //3rd pot
+        // display.setCursor(64,48);
+        // display.print(menu[index]._c3._name);
+        // display.setCursor(64,56);
+        // display.print(menu[index]._c3.cv);
 }
 
 void drawMenu(Pot * pot) {

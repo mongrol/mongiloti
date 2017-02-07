@@ -14,6 +14,10 @@
 #include "trellis.h"
 #include "display.h"
 
-
+struct Control {
+  const char* _name;
+  byte cc;
+  byte cv;
+};
 
 #endif /* end of include guard: __ALL_H__ */

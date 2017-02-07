@@ -12,14 +12,11 @@ enum State {
   STATE_OSC2
 };
 
-struct Control {
-  const char* _name;
-  byte cc;
-  byte cv;
-};
+
 
 struct MenuItem {
         const char* _name;
+        int _cNum; //number of controls
         struct Control &_c1;
         struct Control &_c2;
         struct Control &_c3;

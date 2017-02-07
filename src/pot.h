@@ -11,12 +11,13 @@ void setupPots();
 class Pot {
 public:
         Pot(int pin);
-        Pot(int pin, Control* control);
+        Pot(int pin, Control* control, int menuNum);
         void attach(int pin);
         void scale(int min, int max);
         int read();
         int raw();
         Control * p_control;
+        int _menuNum; // the menu this pot belongs to.
 
 private:
         int _samples[SMOOTH_ANALOG_INPUT_SIZE];

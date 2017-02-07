@@ -73,8 +73,10 @@ int menuIndex = 0;
 // Create menu objects.
 // Each menu has a label and pointers to control structs
 
-MenuItem menu[1] {
-  { LABEL_OSC1, controlOSC1Pitch, controlOSC1Shape, controlOSC1Mix }
+MenuItem menu[3] {
+        { LABEL_OSC1, 3, controlOSC1Pitch, controlOSC1Shape, controlOSC1Mix },
+        { LABEL_OSC2, 3, controlOSC2Pitch, controlOSC2Shape, controlOSC2Mix },
+        { LABEL_OSC3, 3, controlOSC3Pitch, controlOSC3Shape, controlOSC3Mix }
 };
 
 // Create Pot objects
@@ -84,9 +86,9 @@ MenuItem menu[1] {
 bool drawn = true;
 
 Pot pots[POTCOUNT] {
-        { POT_A0, &controlOSC1Pitch },
-        { POT_A1, &controlOSC1Shape },
-        { POT_A2, &controlOSC1Mix }
+        { POT_A0, &controlOSC1Pitch, 0 },
+        { POT_A1, &controlOSC1Shape, 0 },
+        { POT_A2, &controlOSC1Mix, 0 }
         // { POT_A3 },
         // { POT_A6 },
         // { POT_A7 },
@@ -109,7 +111,7 @@ void update()
 
         //check devices for change
         processPots();
-        //processEncoder();
+        processEncoder();
         processButton();
         processTrellis();
         drawMenu(menuIndex);
