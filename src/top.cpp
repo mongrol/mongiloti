@@ -68,15 +68,17 @@ Control controlOSC3Shape = { LABEL_SHAPE, CC_OSC3_SHAPE, 0 };
 Control controlOSC3Pitch = { LABEL_PITCH, CC_OSC3_PITCH, 0 };
 Control controlOSC3Mix = { LABEL_MIX, CC_OSC3_MIX, 0 };
 
+Control controlNULL = {"",0,0};
+
 int menuIndex = 0;
 
 // Create menu objects.
 // Each menu has a label and pointers to control structs
 
 MenuItem menu[3] {
-        { LABEL_OSC1, 3, controlOSC1Pitch, controlOSC1Shape, controlOSC1Mix },
-        { LABEL_OSC2, 3, controlOSC2Pitch, controlOSC2Shape, controlOSC2Mix },
-        { LABEL_OSC3, 3, controlOSC3Pitch, controlOSC3Shape, controlOSC3Mix }
+        { LABEL_OSC1, 3, controlOSC1Pitch, controlOSC1Shape, controlOSC1Mix, controlNULL },
+        { LABEL_OSC2, 3, controlOSC2Pitch, controlOSC2Shape, controlOSC2Mix, controlNULL  },
+        { LABEL_OSC3, 3, controlOSC3Pitch, controlOSC3Shape, controlOSC3Mix, controlNULL  }
 };
 
 // Create Pot objects

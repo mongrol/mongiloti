@@ -20,6 +20,7 @@ struct MenuItem {
         struct Control &_c1;
         struct Control &_c2;
         struct Control &_c3;
+        struct Control &_c4;
 };
 
 void push_cv(byte cc, byte cv);

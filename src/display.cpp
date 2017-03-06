@@ -22,7 +22,7 @@ void setupDisplay() {
 
 void drawMenu(const int index) {
 
-        int x=20, y=0, w=16, h=16;
+        int x=20, y=0, w=16, h=17, r1=0, r2=h, r3=h*2, r4=h*3;
 
         //print label - Must be 4 chars long
         display.clearDisplay();
@@ -43,16 +43,43 @@ void drawMenu(const int index) {
 
 
         display.setTextColor(WHITE);
-
         display.setCursor(x,y);
 
         //print 1st pot
-        for (int i=0; i<=menu[index]._cNum;i++){
-          display.setTextSize(2);
-          display.print(menu[index]._c1._name);
-          display.setCursor(x+w*4+6,0);
-          display.print(menu[index]._c1.cv);
-          display.drawLine(x,h+1,128,h+1, WHITE);
+        //Serial.print(menu[index]._cNum);
+        for (int i=1; i<=menu[index]._cNum; i++) {
+                switch (i) {
+                case 1:
+                        display.setTextSize(2);
+                        display.print(menu[index]._c1._name);
+                        display.setCursor(x+w*4+6,r1);
+                        display.print(menu[index]._c1.cv);
+                        break;
+                case 2:
+                        // display.drawLine(x,r2-2,128,r2-2, WHITE);
+                        display.setCursor(x,r2);
+                        display.setTextSize(2);
+                        display.print(menu[index]._c2._name);
+                        display.setCursor(x+w*4+6,r2);
+                        display.print(menu[index]._c2.cv);
+                        break;
+                case 3:
+                        //display.drawLine(x,r3-2,128,r3-3, WHITE);
+                        display.setCursor(x,r3);
+                        display.setTextSize(2);
+                        display.print(menu[index]._c3._name);
+                        display.setCursor(x+w*4+6,r3);
+                        display.print(menu[index]._c3.cv);
+                        break;
+                case 4:
+                        //display.drawLine(x,r4-2,128,r4-2, WHITE);
+                        display.setCursor(x,r4);
+                        display.setTextSize(2);
+                        display.print(menu[index]._c4._name);
+                        display.setCursor(x+w*4+6,r4);
+                        display.print(menu[index]._c4.cv);
+                        break;
+                }
         }
 
 
