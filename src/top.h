@@ -4,24 +4,7 @@
 #include "all.h"
 
 #define MENU_COUNT 3
-#define POTCOUNT 3
-
-enum State {
-  STATE_TOP,
-  STATE_OSC1,
-  STATE_OSC2
-};
-
-
-
-struct MenuItem {
-        const char* _name;
-        int _cNum; //number of controls
-        struct Control &_c1;
-        struct Control &_c2;
-        struct Control &_c3;
-        struct Control &_c4;
-};
+#define POTCOUNT 10
 
 void push_cv(byte cc, byte cv);
 void update();

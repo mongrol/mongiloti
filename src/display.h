@@ -8,9 +8,6 @@
 
 
 void drawMenu(const int index);
-void drawMenu(Pot * pot);
-void draw(int cc, int value);
-void draw(const char* label);
 void setupDisplay();
 void updateDisplay();
 

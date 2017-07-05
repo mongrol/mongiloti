@@ -30,3 +30,5 @@
 >>>>>>> 1a3f48115ad396ca4ceecfd5116a147b7d0dd0a5
 .piolibdeps
 WString.h
+.vscode/browse.vc.db*
+.vscode

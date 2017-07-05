@@ -15,71 +15,55 @@
 #define POT_A10 10
 #define POT_A11 11
 
+// Control CC's
+#define CC_RATIO 20
+#define CC_NOISE_DECAY 21
+#define CC_BODY_DECAY 22
+#define CC_TUNE 23
+#define CC_PITCH_ENV 24
+#define CC_PITCH_DECAY 25
+#define CC_DRIVE 26
+#define CC_NOISE_ACCENT 27
+#define CC_BODY_ACCENT 28
+#define CC_DRIVE_ACCENT 29
 
-// CC descriptions and CC number
-// trying to stick to GM Midi standards or Micromonsta maps
-#define CC_OSC1_PITCH 22
-#define CC_OSC1_SHAPE 23
-#define CC_OSC1_MIX 25
-#define CC_OSC2_PITCH 27
-#define CC_OSC2_SHAPE 28
-#define CC_OSC2_MIX 30
-#define CC_OSC3_PITCH 31
-#define CC_OSC3_SHAPE 32
-#define CC_OSC3_MIX 33
 
-#define CC_ENV1_ATTACK 73
-#define CC_ENV1_DECAY 75
-#define CC_ENV1_SUSTAIN 79
-#define CC_ENV1_RELEASE 72
-#define CC_FILTER_CUTOFF 74
-#define CC_FILTER_RESONANCE 71
-#define CC_VCA_GAIN 77
+// Strings for Control labels
+const char *L_RATIO = "Noise/Decay Ratio";
+const char *L_NOISE_DECAY = "Noise Decay";
+const char *L_BODY_DECAY = "Body Decay";
+const char *L_TUNE = "Tune";
+const char *L_PITCH_ENV = "Pitch Env";
+const char *L_PITCH_DECAY = "Pitch Decay";
+const char *L_DRIVE = "Drive";
+const char *L_NOISE_ACCENT = "Noise Accent";
+const char *L_BODY_ACCENT = "Body Accent";
+const char *L_DRIVE_ACCENT = "Drive Accent";
 
-// Strings for Menu labels
-const char *LABEL_OSC1 = "OSC1";
-const char *LABEL_OSC2 = "OSC2";
-const char *LABEL_OSC3 = "OSC3";
-const char *LABEL_PITCH = "Pitch";
-const char *LABEL_SHAPE = "Shape";
-const char *LABEL_MIX = "Mix";
-const char *LABEL_ENV1 = "Env1";
-const char *LABEL_ENV2 = "Env2";
+const char *L_INSTRUMENT_1 = "Kick";
+const char *L_INSTRUMENT_2 = "Snare";
+const char *L_INSTRUMENT_3 = "cHat";
+const char *L_INSTRUMENT_4 = "oHat";
 
-const char *LABEL_ATTACK = "Attack";
-const char *LABEL_DECAY = "Decay";
-const char *LABEL_SUSTAIN = "Sustain";
-const char *LABEL_RELEASE = "Release";
-const char *LABEL_FILTER_CUTOFF = "Filter Cutoff";
-const char *LABEL_FILTER_RESONANCE = "Filter Res";
-const char *LABEL_VCA_GAIN = "VCA Gain";
-
-//Create control structs
-//Each control has a label, a CC assigned and holds the current value of the CC
-Control controlOSC1Shape = { LABEL_SHAPE, CC_OSC1_SHAPE, 0 };
-Control controlOSC1Pitch = { LABEL_PITCH, CC_OSC1_PITCH, 0 };
-Control controlOSC1Mix = { LABEL_MIX, CC_OSC1_MIX, 0 };
-
-Control controlOSC2Shape = { LABEL_SHAPE, CC_OSC2_SHAPE, 0 };
-Control controlOSC2Pitch = { LABEL_PITCH, CC_OSC2_PITCH, 0 };
-Control controlOSC2Mix = { LABEL_MIX, CC_OSC2_MIX, 0 };
-
-Control controlOSC3Shape = { LABEL_SHAPE, CC_OSC3_SHAPE, 0 };
-Control controlOSC3Pitch = { LABEL_PITCH, CC_OSC3_PITCH, 0 };
-Control controlOSC3Mix = { LABEL_MIX, CC_OSC3_MIX, 0 };
-
-Control controlNULL = {"",0,0};
+//Create Instruments
+Instrument Instruments[1] {
+        { L_INSTRUMENT_1,
+        {
+                { L_RATIO, CC_RATIO, 0 },
+                { L_NOISE_DECAY, CC_NOISE_DECAY, 0 },
+                { L_BODY_DECAY, CC_BODY_DECAY, 0 },
+                { L_TUNE, CC_TUNE, 0 },
+                { L_PITCH_ENV, CC_PITCH_ENV, 0 },
+                { L_PITCH_DECAY, CC_PITCH_DECAY, 0 },
+                { L_DRIVE, CC_DRIVE, 0 },
+                { L_NOISE_ACCENT, CC_NOISE_ACCENT, 0 },
+                { L_BODY_ACCENT, CC_BODY_ACCENT, 0 },
+                { L_DRIVE_ACCENT, CC_DRIVE_ACCENT, 0 }
+                }
+        }
+};
 
 int menuIndex = 0;
-
-// Create menu objects.
-// Each menu has a label and pointers to control structs
-
-MenuItem menu[3] {
-        { LABEL_OSC1, 3, controlOSC1Pitch, controlOSC1Shape, controlOSC1Mix, controlNULL },
-        { LABEL_OSC2, 3, controlOSC2Pitch, controlOSC2Shape, controlOSC2Mix, controlNULL  },
-        { LABEL_OSC3, 3, controlOSC3Pitch, controlOSC3Shape, controlOSC3Mix, controlNULL  }
-};
 
 // Create Pot objects
 // Each Pot has a pointer to a valid Control.
@@ -87,17 +71,9 @@ MenuItem menu[3] {
 
 bool drawn = true;
 
-Pot pots[POTCOUNT] {
-        { POT_A0, &controlOSC1Pitch, 0 },
-        { POT_A1, &controlOSC1Shape, 0 },
-        { POT_A2, &controlOSC1Mix, 0 }
-        // { POT_A3 },
-        // { POT_A6 },
-        // { POT_A7 },
-        // { POT_A8 },
-        // { POT_A9 },
-        // { POT_A10 },
-        // { POT_A11 }
+Pot pots[10] {
+        POT_A0, POT_A1, POT_A2, POT_A3, POT_A6, POT_A7,
+        POT_A8, POT_A9, POT_A10, POT_A11
 };
 
 void push_cv(byte cc, byte cv)
@@ -115,6 +91,6 @@ void update()
         processPots();
         processEncoder();
         processButton();
-        processTrellis();
+        //processTrellis();
         drawMenu(menuIndex);
 }

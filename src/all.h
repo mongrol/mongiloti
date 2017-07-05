@@ -20,4 +20,9 @@ struct Control {
   byte cv;
 };
 
+struct Instrument {
+        const char* _name;
+        Control Controls[10];
+};
+
 #endif /* end of include guard: __ALL_H__ */
