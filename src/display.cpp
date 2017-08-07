@@ -1,7 +1,8 @@
 #include "all.h"
-extern int menuIndex;
-//extern bool drawn;
-// extern MenuItem menu[3];
+extern bool needDisplayUpdate;
+
+extern Instrument Instruments[];
+
 
 //set OLED
 #define SSD1306_128_64
@@ -20,10 +21,28 @@ void setupDisplay() {
         display.invertDisplay(false);
 }
 
-void drawMenu(const int index) {
+void drawScreen() {
+        //draw a circle, like a dial
+        display.clearDisplay();
+        int x0 = 64;
+        int y0 = 32;
+        int r = 30;
+        display.drawCircle(x0, y0, r, WHITE);
 
-  
- 
+        //draft gauge drawing
+        float degrees =  (float)Instruments[0].Controls[0].cv / 128 * 183 + 179;
+        char outstr[15];
+        dtostrf(degrees,7, 3, outstr);
+        Serial.println(outstr);
+        double theta = radians(degrees);
+        int x = x0 + r * cos(theta);
+        int y = y0 + r * sin(theta);
+
+        Serial.printf("%d %d ", x, y);
+        
+        display.drawLine(x0, y0, x, y, WHITE);
+
+        display.display();
 }
 
 void draw(int cc, int value) {
@@ -37,7 +56,6 @@ void draw(int cc, int value) {
 }
 
 void updateDisplay(){
-
 
         display.display();
 }

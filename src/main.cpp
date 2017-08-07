@@ -15,7 +15,6 @@ void setup()   {
         setupButton();
         MIDI.begin();
 
-        drawMenu(0);
 }
 
 void loop() {

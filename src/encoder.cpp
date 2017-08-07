@@ -32,6 +32,7 @@ void processEncoder(){
         if (newEncoderPosition != oldEncoderPosition) {
                 oldEncoderPosition = newEncoderPosition;
                 Serial.print(newEncoderPosition);
+                Serial.printf(" ");
                 menuIndex++;
                 if (menuIndex == MENU_COUNT){ menuIndex=0;}
                 //drawn = false;

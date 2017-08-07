@@ -11,7 +11,7 @@
 
 #include "encoder.h"
 #include "pot.h"
-#include "trellis.h"
+//#include "trellis.h"
 #include "display.h"
 
 struct Control {

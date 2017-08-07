@@ -7,7 +7,7 @@
 #include "Adafruit_GFX.h"
 
 
-void drawMenu(const int index);
+void drawScreen();
 void setupDisplay();
 void updateDisplay();
 

@@ -1,25 +1,27 @@
 #include "all.h"
 
 extern Pot pots[];
-
+extern Instrument Instruments[];
+extern bool needDisplayUpdate;
 
 void processPots(){
         //scan pots for change
-        //for (int i = 0; i < POTCOUNT; i++) {
-           // if (pots[i].read() != pots[i].p_control->cv) {
-              // pot has changed so set new cc value
-             //   pots[i].p_control->cv=(pots[i].read());
-                // push the cc to axoloti
-             //   push_cv(pots[i].p_control->cc, pots[i].p_control->cv);
-                // switch menu to that controls
-             //   menuIndex = pots[i]._menuNum;
+        //Serial.printf("Scanning %d pots\n", POTCOUNT);
+        for (int i = 0; i < POTCOUNT; i++) {
+                //Serial.printf("Pot %d \n",i );
+                if (pots[i].read() != Instruments[0].Controls[i].cv) {
 
-                //Serial.printf("Setting %s CC:%d to %d\n",pots[i].p_control->_name, pots[i].p_control->cc, pots[i].p_control->cv );
-                //draw(pots[i].p_control->cc, pots[i].read());
+                        //pot has changed so set new cc value
+                        Instruments[0].Controls[i].cv = pots[i].read();
+                        // push the cc to axoloti
+                        push_cv(Instruments[0].Controls[i].cc, Instruments[0].Controls[i].cv);
+                        needDisplayUpdate = true;
+                        Serial.printf("Setting %s CC:%d to %d\n", Instruments[0].Controls[i]._name, Instruments[0].Controls[i].cc, Instruments[0].Controls[i].cv );
+
         //     } else {
         //         //draw(pots[i].get_name(), pots[0].read());
-        //     }
-        // }
+             }
+        }
 }
 
 Pot::Pot(int pin)

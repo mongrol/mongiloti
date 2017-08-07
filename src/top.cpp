@@ -64,12 +64,9 @@ Instrument Instruments[1] {
 };
 
 int menuIndex = 0;
+bool needDisplayUpdate = false;
 
 // Create Pot objects
-// Each Pot has a pointer to a valid Control.
-// When we switch menu's the pointer may point to a different Control
-
-bool drawn = true;
 
 Pot pots[10] {
         POT_A0, POT_A1, POT_A2, POT_A3, POT_A6, POT_A7,
@@ -92,5 +89,9 @@ void update()
         processEncoder();
         processButton();
         //processTrellis();
-        drawMenu(menuIndex);
+        if (needDisplayUpdate) {
+                drawScreen();
+                //Serial.print("updating screen");
+                needDisplayUpdate = false;
+        }
 }
