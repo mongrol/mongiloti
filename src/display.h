@@ -8,6 +8,7 @@
 
 
 void drawScreen();
+void drawDial(int x, int y, int r, int value);
 void setupDisplay();
 void updateDisplay();
 

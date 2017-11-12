@@ -32,3 +32,4 @@
 WString.h
 .vscode/browse.vc.db*
 .vscode
+.vscode/c_cpp_properties.json

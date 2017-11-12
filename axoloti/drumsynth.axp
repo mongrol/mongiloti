@@ -15,18 +15,18 @@
       </params>
       <attribs/>
    </obj>
-   <patcher type="patch/patcher" uuid="f6c11f8d-bcbc-4248-bee3-369893ac301c" name="snare" x="308" y="42">
+   <patcher type="patch/patcher" uuid="056a5329-8611-483b-bbad-fe650229d749" name="snare" x="308" y="42">
       <params>
-         <frac32.u.map name="Body/Noise Rate" value="55.0"/>
-         <frac32.s.map name="Noise Decay" value="-23.0"/>
-         <frac32.u.map name="Noise Accent Amt" value="13.0"/>
-         <frac32.s.map name="Body Decay" value="-36.0"/>
+         <frac32.u.map name="Body/Noise Rate" value="37.0"/>
+         <frac32.s.map name="Noise Decay" value="-30.0"/>
+         <frac32.u.map name="Noise Accent Amt" value="7.0"/>
+         <frac32.s.map name="Body Decay" value="-50.0"/>
          <frac32.u.map name="Body Accent Amt" value="13.5"/>
-         <frac32.s.map name="Tune" value="-15.329999923706055"/>
-         <frac32.u.map name="Pitch Env Amt" value="18.0"/>
-         <frac32.s.map name="Pitch Decay" value="-59.0"/>
-         <frac32.u.map name="Drive" value="7.5"/>
-         <frac32.u.map name="Drive Accent Amt" value="19.0"/>
+         <frac32.s.map name="Tune" value="0.29000043869018555"/>
+         <frac32.u.map name="Pitch Env Amt" value="8.0"/>
+         <frac32.s.map name="Pitch Decay" value="-58.0"/>
+         <frac32.u.map name="Drive" value="18.0"/>
+         <frac32.u.map name="Drive Accent Amt" value="13.0"/>
       </params>
       <attribs/>
       <subpatch appVersion="1.0.12">
@@ -463,8 +463,8 @@
    </obj>
    <obj type="mix/mix 4 g" uuid="36f472cd81da2e17bd4b4ee11b53b4c82527220c" name="mix_1" x="826" y="168">
       <params>
-         <frac32.u.map name="gain1" value="11.0"/>
-         <frac32.u.map name="gain2" value="33.0"/>
+         <frac32.u.map name="gain1" value="18.5"/>
+         <frac32.u.map name="gain2" value="64.0"/>
          <frac32.u.map name="gain3" value="12.0"/>
          <frac32.u.map name="gain4" value="13.5"/>
       </params>
@@ -493,13 +493,13 @@
    </obj>
    <obj type="./drumsy2" uuid="67bc82353db009199f9e2637234f2853451cf17" name="kick" x="308" y="546">
       <params>
-         <frac32.u.map name="Body/Noise Rate" value="22.0"/>
+         <frac32.u.map name="Body/Noise Rate" value="5.0"/>
          <frac32.s.map name="Noise Decay" value="-57.0"/>
          <frac32.u.map name="Noise Accent Amt" value="4.5"/>
-         <frac32.s.map name="Body Decay" value="-46.0"/>
+         <frac32.s.map name="Body Decay" value="-29.0"/>
          <frac32.u.map name="Body Accent Amt" value="30.5"/>
-         <frac32.s.map name="Tune" value="-45.709999561309814"/>
-         <frac32.u.map name="Pitch Env Amt" value="15.0"/>
+         <frac32.s.map name="Tune" value="-37.709999561309814"/>
+         <frac32.u.map name="Pitch Env Amt" value="10.0"/>
          <frac32.s.map name="Pitch Decay" value="-16.0"/>
          <frac32.u.map name="Drive" value="9.5"/>
          <frac32.u.map name="Drive Accent Amt" value="0.0"/>
@@ -525,23 +525,23 @@
    </obj>
    <obj type="./drumsy2" uuid="67bc82353db009199f9e2637234f2853451cf17" name="obj_2" x="308" y="1008">
       <params>
-         <frac32.u.map name="Body/Noise Rate" value="57.62999963760376"/>
-         <frac32.s.map name="Noise Decay" value="-32.0"/>
-         <frac32.u.map name="Noise Accent Amt" value="36.0"/>
-         <frac32.s.map name="Body Decay" value="-30.0"/>
-         <frac32.u.map name="Body Accent Amt" value="30.5"/>
-         <frac32.s.map name="Tune" value="59.0"/>
-         <frac32.u.map name="Pitch Env Amt" value="6.5"/>
-         <frac32.s.map name="Pitch Decay" value="-62.0"/>
-         <frac32.u.map name="Drive" value="29.0"/>
-         <frac32.u.map name="Drive Accent Amt" value="10.0"/>
+         <frac32.u.map name="Body/Noise Rate" value="56.5"/>
+         <frac32.s.map name="Noise Decay" value="-30.0"/>
+         <frac32.u.map name="Noise Accent Amt" value="23.5"/>
+         <frac32.s.map name="Body Decay" value="-39.0"/>
+         <frac32.u.map name="Body Accent Amt" value="22.5"/>
+         <frac32.s.map name="Tune" value="27.0"/>
+         <frac32.u.map name="Pitch Env Amt" value="13.5"/>
+         <frac32.s.map name="Pitch Decay" value="-46.0"/>
+         <frac32.u.map name="Drive" value="20.5"/>
+         <frac32.u.map name="Drive Accent Amt" value="28.0"/>
       </params>
       <attribs/>
    </obj>
    <obj type="filter/bp m" uuid="f26437572c3a1f6be883bb219c773a9906ff8296" name="bp_1" x="476" y="1008">
       <params>
-         <frac32.s.map name="pitch" value="54.0"/>
-         <frac32.u.map name="reso" value="52.5"/>
+         <frac32.s.map name="pitch" value="56.0"/>
+         <frac32.u.map name="reso" value="57.0"/>
       </params>
       <attribs/>
    </obj>
@@ -676,7 +676,6 @@
       <NPresetEntries>32</NPresetEntries>
       <NModulationSources>8</NModulationSources>
       <NModulationTargetsPerSource>8</NModulationTargetsPerSource>
-      <Author></Author>
    </settings>
    <notes><![CDATA[]]></notes>
    <windowPos>

@@ -29,16 +29,16 @@
 
 
 // Strings for Control labels
-const char *L_RATIO = "Noise/Decay Ratio";
-const char *L_NOISE_DECAY = "Noise Decay";
-const char *L_BODY_DECAY = "Body Decay";
+const char *L_RATIO = "Nse/Bdy";
+const char *L_NOISE_DECAY = "Nse Dcy";
+const char *L_BODY_DECAY = "Bdy Dcy";
 const char *L_TUNE = "Tune";
-const char *L_PITCH_ENV = "Pitch Env";
-const char *L_PITCH_DECAY = "Pitch Decay";
+const char *L_PITCH_ENV = "Pch Env";
+const char *L_PITCH_DECAY = "Pch Dcy";
 const char *L_DRIVE = "Drive";
-const char *L_NOISE_ACCENT = "Noise Accent";
-const char *L_BODY_ACCENT = "Body Accent";
-const char *L_DRIVE_ACCENT = "Drive Accent";
+const char *L_NOISE_ACCENT = "Nse Accnt";
+const char *L_BODY_ACCENT = "Body Accnt";
+const char *L_DRIVE_ACCENT = "Drv Accnt";
 
 const char *L_INSTRUMENT_1 = "Kick";
 const char *L_INSTRUMENT_2 = "Snare";
@@ -64,7 +64,10 @@ Instrument Instruments[1] {
 };
 
 int menuIndex = 0;
-bool needDisplayUpdate = false;
+bool needDisplayUpdate = true;
+DSTATE dstate = DIALS;
+int activePot = 0;
+Metro displayTimer = Metro(3000);
 
 // Create Pot objects
 
@@ -81,9 +84,6 @@ void push_cv(byte cc, byte cv)
 
 void update()
 {
-        //tests
-        //Serial.printf(pots[0].p_control->get_name());
-
         //check devices for change
         processPots();
         processEncoder();
@@ -91,7 +91,10 @@ void update()
         //processTrellis();
         if (needDisplayUpdate) {
                 drawScreen();
-                //Serial.print("updating screen");
+                Serial.print("updating screen");
                 needDisplayUpdate = false;
+        }
+        if (displayTimer.check() == 1){
+                dstate = DIALS;
         }
 }

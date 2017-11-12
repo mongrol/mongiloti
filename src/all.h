@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 
+#include <Metro.h> 
 #include <MIDI.h>
 #include <SPI.h>
 #include <Wire.h>
@@ -13,6 +14,8 @@
 #include "pot.h"
 //#include "trellis.h"
 #include "display.h"
+
+enum DSTATE { DIALS, BIGDIAL, MAIN_LABEL };
 
 struct Control {
   const char* _name;
