@@ -82,7 +82,7 @@ void drawScreen() {
     x = 96;
     drawDial(x, y, r, Instruments[0].Controls[9].cv);
   }
-  if (dstate == BIGDIAL) {
+  else if (dstate == BIGDIAL) {
     display.setTextSize(2);
     display.setTextColor(WHITE);
     // draw the moved dial

@@ -17,7 +17,7 @@ void processPots() {
       Instruments[0].Controls[i].cv = pots[i].read();
       // push the cc to axoloti
       push_cv(Instruments[0].Controls[i].cc, Instruments[0].Controls[i].cv);
-      // set the pot that's just been moved so we can draw it.
+      // set the pot that's just been moved so we can drawe it.
       activePot = i;
       dstate = BIGDIAL;
       needDisplayUpdate = true;

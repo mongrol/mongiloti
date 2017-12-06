@@ -1,6 +1,6 @@
 #include "all.h"
 
-//MIDI Channel
+// MIDI Channel
 #define CHANNEL 1
 
 // POT to pin
@@ -27,7 +27,6 @@
 #define CC_BODY_ACCENT 28
 #define CC_DRIVE_ACCENT 29
 
-
 // Strings for Control labels
 const char *L_RATIO = "Nse/Bdy";
 const char *L_NOISE_DECAY = "Nse Dcy";
@@ -45,23 +44,18 @@ const char *L_INSTRUMENT_2 = "Snare";
 const char *L_INSTRUMENT_3 = "cHat";
 const char *L_INSTRUMENT_4 = "oHat";
 
-//Create Instruments
-Instrument Instruments[1] {
-        { L_INSTRUMENT_1,
-        {
-                { L_RATIO, CC_RATIO, 0 },
-                { L_NOISE_DECAY, CC_NOISE_DECAY, 0 },
-                { L_BODY_DECAY, CC_BODY_DECAY, 0 },
-                { L_TUNE, CC_TUNE, 0 },
-                { L_PITCH_ENV, CC_PITCH_ENV, 0 },
-                { L_PITCH_DECAY, CC_PITCH_DECAY, 0 },
-                { L_DRIVE, CC_DRIVE, 0 },
-                { L_NOISE_ACCENT, CC_NOISE_ACCENT, 0 },
-                { L_BODY_ACCENT, CC_BODY_ACCENT, 0 },
-                { L_DRIVE_ACCENT, CC_DRIVE_ACCENT, 0 }
-                }
-        }
-};
+// Create Instruments
+Instrument Instruments[1]{{L_INSTRUMENT_1,
+                           {{L_RATIO, CC_RATIO, 0},
+                            {L_NOISE_DECAY, CC_NOISE_DECAY, 0},
+                            {L_BODY_DECAY, CC_BODY_DECAY, 0},
+                            {L_TUNE, CC_TUNE, 0},
+                            {L_PITCH_ENV, CC_PITCH_ENV, 0},
+                            {L_PITCH_DECAY, CC_PITCH_DECAY, 0},
+                            {L_DRIVE, CC_DRIVE, 0},
+                            {L_NOISE_ACCENT, CC_NOISE_ACCENT, 0},
+                            {L_BODY_ACCENT, CC_BODY_ACCENT, 0},
+                            {L_DRIVE_ACCENT, CC_DRIVE_ACCENT, 0}}}};
 
 int menuIndex = 0;
 bool needDisplayUpdate = true;
@@ -71,30 +65,24 @@ Metro displayTimer = Metro(3000);
 
 // Create Pot objects
 
-Pot pots[10] {
-        POT_A0, POT_A1, POT_A2, POT_A3, POT_A6, POT_A7,
-        POT_A8, POT_A9, POT_A10, POT_A11
-};
+Pot pots[10]{POT_A0, POT_A1, POT_A2, POT_A3,  POT_A6,
+             POT_A7, POT_A8, POT_A9, POT_A10, POT_A11};
 
-void push_cv(byte cc, byte cv)
-{
-        MIDI.sendControlChange(cc, cv, CHANNEL);
-}
+void push_cv(byte cc, byte cv) { MIDI.sendControlChange(cc, cv, CHANNEL); }
 
-
-void update()
-{
-        //check devices for change
-        processPots();
-        processEncoder();
-        processButton();
-        //processTrellis();
-        if (needDisplayUpdate) {
-                drawScreen();
-                Serial.print("updating screen");
-                needDisplayUpdate = false;
-        }
-        if (displayTimer.check() == 1){
-                dstate = DIALS;
-        }
+void update() {
+  // check devices for change
+  processPots();
+  processEncoder();
+  processButton();
+  // processTrellis();
+  if (needDisplayUpdate) {
+    drawScreen();
+    Serial.print("updating screen");
+    needDisplayUpdate = false;
+  }
+  if (displayTimer.check() == 1) {
+    dstate = DIALS;
+    needDisplayUpdate = true;
+  }
 }
